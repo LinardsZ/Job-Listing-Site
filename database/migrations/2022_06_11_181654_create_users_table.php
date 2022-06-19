@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id('userid');
+            $table->char('firstname', 30);
+            $table->char('surname', 30);
             $table->string('username', 20)->unique();
             $table->char('password', 60); //hashed bcrypt password 60 chars long
             $table->string('email', 100)->unique();
-            $table->char('userrole', 1);
+            $table->char('userrole', 1); // 1 for user, 2 for administrator
             $table->timestamps();
         });
     }

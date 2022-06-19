@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\UsersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('landing');
-});
+Route::get('/', [SearchController::class, 'index']);
+
+//search routes
+Route::post('/show', 'App\Http\Controllers\SearchController@show');
+Route::get('/listing/{id}', [SearchController::class, 'show']);
+
+//login and registration routes
+Route::get('/register', [UsersController::class, 'register'])->name('register');
+Route::get('/login', [UsersController::class, 'login'])->name('login');
