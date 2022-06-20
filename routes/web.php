@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\JobOffersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,13 +14,16 @@ use App\Http\Controllers\UsersController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//landing page
 Route::get('/', [SearchController::class, 'index']);
 
-//search routes
-Route::post('/show', 'App\Http\Controllers\SearchController@show');
-Route::get('/listing/{id}', [SearchController::class, 'show']);
+//show detailed information for a single listing
+Route::get('/listing/{id}', [JobOffersController::class, 'show']);
 
-//login and registration routes
-Route::get('/register', [UsersController::class, 'register'])->name('register');
-Route::get('/login', [UsersController::class, 'login'])->name('login');
+//registration routes
+Route::get('/register', [UsersController::class, 'create'])->name('register');
+Route::post('/profile', [UsersController::class, 'store'])->name('create.user');
+
+//login and auth routes
+Route::get('/login', [UsersController::class, 'show'])->name('login');
+Route::post('/login/auth', [UsersController::class, 'login'])->name('auth.user');

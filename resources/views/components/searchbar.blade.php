@@ -2,7 +2,7 @@
     <p class="font-bold text-5xl text-gray-600 select-none">Search for any job!</p>
 </div>
 <div class="flex items-center justify-center">
-        <form method="POST" class="flex border-2 rounded" action="/show">
+        <form method="GET" class="flex border-2 rounded" action="/show">
             <input type="" class="px-4 py-2 border-l w-36" placeholder="Category">
             <input type="" class="px-4 py-2 border-l w-36" placeholder="Location">
             <input type="text" class="px-4 py-2 w-80 border-l" placeholder="Enter a keyword...">

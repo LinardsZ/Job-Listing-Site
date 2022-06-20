@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobOffer;
 use Illuminate\Http\Request;
 
 class JobOffersController extends Controller
@@ -45,7 +46,8 @@ class JobOffersController extends Controller
      */
     public function show($id)
     {
-        //
+        $listing = JobOffer::findOrFail($id);
+        return view('listing', compact('listing'));
     }
 
     /**

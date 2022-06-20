@@ -7,7 +7,7 @@
 		<script src="https://cdn.tailwindcss.com"></script>
         <title>Job Listings - Register</title>
     </head>
-    <body>
+    <body class="bg-neutral-100">
         <x-navbar/>
         <div class="my-24 mx-auto w-1/2">
         <div class="mb-12">
@@ -23,14 +23,19 @@
             C6.05,8.987,7.561,8.997,9.072,8.984c0.004-1.49,0.001-2.979,0.001-4.469C7.562,4.513,6.052,4.513,4.541,4.515z"/>
             </svg>
         </div>
-        <form class="flex flex-col items-center">
+        <form class="flex flex-col items-center" onsubmit="return validateLogin()" method="POST" action="{{ route('auth.user') }}">
             @csrf
             <label class="w-1/3" for="username">Username:</label>
             <input class="border border-red-900 mb-4 w-1/3" type="text" id="username" name="username">
+
             <label class="w-1/3" for="password">Password:</label>
-            <input class="border border-red-900 mb-8 w-1/3" type="password" id="password" name="password">
-            <input class="bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded" type="submit">
+            <input class="border border-red-900 w-1/3" type="password" id="password" name="password">
+
+            <span class="bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error"></span>
+            <input class="bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded mt-8" type="submit">
         </form>
         </div>
+        <script src="{{ asset('js/validate_login.js') }}"></script>
+        <script src="{{ asset('js/error_display.js') }}"></script>
     </body>
 </html>

@@ -11,58 +11,51 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        
-    }
-
-    public function login() {
-        return view('login');
-    }
-
-    public function register() {
+    // Show view for registering
+    public function create() {
         return view('register');
     }
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+
+   // Validate and create a new user entry in the database
+    public function store(Request $request) {
+        $rules = [
+            'name' => 'required|alpha|max:30',
+            'surname' => 'required|alpha|max:30',
+            'username' => 'required|alpha_dash|max:20',
+            'email' => 'required|email|max:100',
+            'password' => 'required|not_regex:/^[a-z0-9]+$/|min:8'
+        ];
+        
+        $messages = [
+            'password.not_regex' => 'Password must contain at least one capital letter or symbol.'
+        ];
+
+        $request->validate($rules, $messages);
+
+        //to be added profile view redirect
+        return "hi";
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    // Show view for logging in.
+    public function show() {
+         return view('login');
     }
 
+    // Login validation and authorization
+    public function login() {
+        return "logged in";
+    }
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id) {
         //
     }
 
@@ -73,8 +66,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id) {
         //
     }
 
@@ -84,8 +76,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //
     }
 }

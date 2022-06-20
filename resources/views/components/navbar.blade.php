@@ -18,10 +18,10 @@
     <button class="text-white inline-flex p-3 hover:bg-gray-900 rounded lg:hidden ml-auto nav-toggler" data-target="#navigation"><i class="material-icons">menu</i></button>
     <div class="top-nav w-full lg:inline-flex lg:flex-grow lg:w-auto">
         <div id="navigation" class="lg:inline-flex lg:flex-row lg:ml-auto flex flex-col">
-            <a href="{{ route('login') }}" class="lg:inline-flex lg:w-auto px-3 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
+            <a href="{{ route('login') }}" class="lg:inline-flex lg:w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
                 <span>Login</span>
             </a>
-            <a href="{{ route('register') }}" class="lg:inline-flex lg:w-auto px-3 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
+            <a href="{{ route('register') }}" class="lg:inline-flex lg:w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
                 <span>Register</span>
             </a>
         </div>

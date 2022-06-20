@@ -16,11 +16,13 @@ return new class extends Migration
         Schema::create('joboffers', function (Blueprint $table) {
             $table->id('offerid');
             $table->foreignId('companyid')->constrained('company');
-            $table->string('position', 30);
+            $table->string('position', 40);
             $table->string('category', 30);
             $table->string('workload', 30);
             $table->integer('salary')->nullable();
             $table->date('posted_at');
+            $table->string('location', 40);
+            $table->string('extra_info', 50);
             $table->text('description');
             $table->timestamps();
         });

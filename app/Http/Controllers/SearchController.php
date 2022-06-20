@@ -53,8 +53,7 @@ class SearchController extends Controller
      */
     public function show($id)
     {
-        $listing = JobOffer::findOrFail($id);
-        return view('listing', compact('listing'));
+        //
     }
 
     /**
