@@ -11,6 +11,10 @@ class Company extends Model
     protected $table = 'companies';
     protected $primaryKey = 'companyid';
 
+    public function user() {
+        return $this->hasOne(User::class, 'userid');
+    }
+
     public function joboffers() {
         return $this->hasMany(JobOffer::class, 'companyid');
     }

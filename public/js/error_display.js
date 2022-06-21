@@ -2,7 +2,6 @@
 document.addEventListener('DOMContentLoaded', (event) => {
     let errors = document.getElementsByClassName('msgs')
     let login_error = document.getElementById('error')
-    
     if(errors.length != 0) {
         for(let i = 0; i < errors.length; ++i) {
             if(errors[i].innerText.length == 0) {
@@ -10,7 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             }
         }
     }
-    else if(login_error) {
+    if(login_error) {
         if(login_error.innerText.length == 0) login_error.style.display = "none"
         else login_error.style.display = "inline"
     }

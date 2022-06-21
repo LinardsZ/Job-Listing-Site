@@ -15,9 +15,7 @@ return new class extends Migration
     {
         Schema::create('companies', function (Blueprint $table) {
             $table->id('companyid');
-            $table->string('username', 20)->unique();
-            $table->char('password', 60); //hashed bcrypt password 60 chars long
-            $table->string('email', 100)->unique();
+            $table->foreignId('userid')->constrained('users');
             $table->string('name', 50);
             $table->integer('registryid');
             $table->text('about');

@@ -1,4 +1,8 @@
 function validateRegister() {
+    let in_use = document.getElementById('in-use')
+    if (in_use.innerText.length != 0) in_use.innerText = ""
+    else in_use.style.display = "none"
+
     let error_firstname = document.getElementById('error-firstname')
     let error_surname = document.getElementById('error-surname')
     let error_username = document.getElementById('error-username')
@@ -11,7 +15,7 @@ function validateRegister() {
     error_email.textContent = ""
     error_password.textContent = ""
 
-    let firstname = document.getElementById('name') 
+    let firstname = document.getElementById('firstname') 
     let surname = document.getElementById('surname') 
     let username = document.getElementById('username')
     let email = document.getElementById('email')

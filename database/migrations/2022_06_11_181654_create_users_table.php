@@ -20,7 +20,9 @@ return new class extends Migration
             $table->string('username', 20)->unique();
             $table->char('password', 60); //hashed bcrypt password 60 chars long
             $table->string('email', 100)->unique();
-            $table->char('userrole', 1); // 1 for user, 2 for administrator
+            $table->char('userrole', 1)->default('1'); // 1 for user, 2 for administrator
+            $table->boolean('has_company')->default(false);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

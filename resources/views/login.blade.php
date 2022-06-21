@@ -10,7 +10,7 @@
     <body class="bg-neutral-100">
         <x-navbar/>
         <div class="my-24 mx-auto w-1/2">
-        <div class="mb-12">
+        <div class="mb-8">
             <svg class="block fill-emerald-700 h-24 w-24 mx-auto" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                 viewBox="0 0 13.611 13.493"  xml:space="preserve">
                 <path class="" d="M4.174,0.37C4.293,0.24,4.449,0.148,4.549,0C4.531,1.498,4.54,2.997,4.544,4.496C4.871,4.182,5.169,3.834,5.522,3.55
@@ -24,6 +24,7 @@
             </svg>
         </div>
         <form class="flex flex-col items-center" onsubmit="return validateLogin()" method="POST" action="{{ route('auth.user') }}">
+            <div class="w-1/2 mx-auto font-bold text-center mb-4">Log in to your account</div>
             @csrf
             <label class="w-1/3" for="username">Username:</label>
             <input class="border border-red-900 mb-4 w-1/3" type="text" id="username" name="username">
@@ -31,8 +32,12 @@
             <label class="w-1/3" for="password">Password:</label>
             <input class="border border-red-900 w-1/3" type="password" id="password" name="password">
 
-            <span class="bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error"></span>
-            <input class="bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded mt-8" type="submit">
+            <span class="bg-red-200 px-2 py-1 mt-2 border-l-4 border-red-700 font-bold text-sm" id="error">
+               @error('warning')
+                {{$message}}
+                @enderror
+            </span>
+            <input class="bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded mt-6" type="submit">
         </form>
         </div>
         <script src="{{ asset('js/validate_login.js') }}"></script>

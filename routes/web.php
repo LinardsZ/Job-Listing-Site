@@ -22,8 +22,10 @@ Route::get('/listing/{id}', [JobOffersController::class, 'show']);
 
 //registration routes
 Route::get('/register', [UsersController::class, 'create'])->name('register');
-Route::post('/profile', [UsersController::class, 'store'])->name('create.user');
+Route::post('/users', [UsersController::class, 'store'])->name('create.user');
 
 //login and auth routes
 Route::get('/login', [UsersController::class, 'show'])->name('login');
-Route::post('/login/auth', [UsersController::class, 'login'])->name('auth.user');
+Route::post('/login/auth', [UsersController::class, 'authenticate'])->name('auth.user');
+Route::post('/logout', [UsersController::class, 'logout'])->name('logout');
+

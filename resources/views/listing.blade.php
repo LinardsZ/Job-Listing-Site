@@ -10,42 +10,68 @@
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
-            <div class="grid grid-cols-9 grid-rows-6 my-32 w-1/2 mx-auto">
-                <div class="row-span-1 col-span-9 grid grid-cols-9 bg-neutral-50 border-x border-t border-neutral-200 py-8">
-                    <div class="col-span-2">
-                        <img class="h-32 w-32 ml-6 border border-neutral-200 select-none" src="{{ asset('unnamed.png') }}">
-                    </div>
-                    <div class="col-span-5 font-bold text-4xl text-gray-600 break-normal select-none">
-                        {{ $listing->position }} pārdevējs/a - konsultants/e Rīgā, Avotu ielā 26
-                    </div>
-                    <div class="col-span-2 flex flex-col flex justify-around px-4">
-                        <a class="font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 ease-in-out duration-300 cursor-pointer select-none">Nosūtīt e-pastu</a>
-                        <a class="font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 ease-in-out duration-300 cursor-pointer select-none">Uzsākt saraksti</a>
-                    </div>
+        <div class="flex flex-col w-1/2 mx-auto my-24">
+            <div class="flex flex-row bg-neutral-50 border border-neutral-200 py-4">
+                <div class="flex items-center">
+                    <img class="h-32 w-32 ml-6 border border-neutral-200 select-none" src="{{ asset('unnamed.png') }}">
                 </div>
-                <div class="row-span-5 col-span-6 border-y border-l bg-neutral-50">
-                    {{ $listing->description }}
+                <div class="flex-1 px-4 font-bold text-4xl text-gray-600 break-normal select-none ">
+                    {{ $listing->position }} pārdevējs/a - konsultants/e Rīgā, Avotu ielā 26
                 </div>
-                <div class="row-span-5 col-span-3 border-y border-r bg-neutral-50 p-6">
-                    <div class="font-bold pb-4 text-lg">Informācija par darbu</div>
-                    
-                    <div class="pb-2 flex items-center"><span class="material-icons pr-1">place</span><p> Atrašanās vieta</p></div>
-                    <p>{{ $listing->location }}</p>
-                    
-                    <div class="pb-2 flex items-center"><span class="material-icons pr-1">euro_symbol</span><p> Alga</p></div>
-                    <p>{{ $listing->salary }}</p>
-                    
-                    <div class="pb-2 flex items-center"><span class="material-icons pr-1">schedule</span><p> Darba slodze</p></div>
-                    <p>{{ $listing->workload }}</p>
-
-                    <div class="pb-2 flex items-center"><span class="material-icons pr-1">error_outline</span><p class="inline"> Papildus informācija</p></div>
-                    <p>{{ $listing->extra_info }}</p>
-                    
-                    <div class="pb-2 flex items-center"><span class="material-icons pr-1">today</span><p> Ievietots</p></div>
-                    <p>{{ $listing->posted_at }}</p>
-
-                    <div class="pb-2 flex items-center"><span class="material-icons pr-1">domain</span><p> Reģ. nr.</p></div>
+                <div class="flex flex-col pr-4 justify-center">
+                    <a class="block font-bold text-white text-center mb-4 p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
+                    ease-in-out duration-300 cursor-pointer select-none">Nosūtīt e-pastu</a>
+                    <a class="block font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
+                    ease-in-out duration-300 cursor-pointer select-none">Uzsākt saraksti</a>
                 </div>
             </div>
+            <div class="flex justify-between flex-row bg-neutral-50 p-4 border-x border-b border-neutral-200">
+                <pre class="float-right whitespace-pre-wrap font-sans">{{ $listing->description }}</pre>
+                
+                <div class="float-left flex flex-col shrink-0 grow-0 pl-4">
+                    <p class="inline font-bold pb-8 text-lg text-gray-600">Informācija par darbu</p>
+                    
+                    <div class="pb-2 grid grid-rows-2 grid-cols-10 items-center">
+                        <span class="col-span-1 row-span-2 material-icons pr-1">place</span>
+                        <div class="col-span-9 row-span-2">
+                            <p class="text-sm">Atrašanās vieta:</p>
+                            <p class="text-sm">{{ $listing->location }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pb-2 grid grid-rows-2 grid-cols-10 items-center">
+                        <span class="col-span-1 row-span-2 material-icons pr-1">euro_symbol</span>
+                        <div class="col-span-9 row-span-2">
+                            <p class="text-sm">Alga:</p>
+                            <p class="text-sm">{{ $listing->salary }} €/mēn</p>
+                        </div>
+                    </div>
+
+                    <div class="pb-2 grid grid-rows-2 grid-cols-10 items-center">
+                        <span class="col-span-1 row-span-2 material-icons pr-1">schedule</span>
+                        <div class="col-span-9 row-span-2">
+                            <p class="text-sm">Darba slodze:</p>
+                            <p class="text-sm">{{ $listing->workload }}</p>
+                        </div>
+                    </div>
+
+                    <div class="pb-2 grid grid-rows-2 grid-cols-10 items-center">
+                        <span class="col-span-1 row-span-2 material-icons pr-1">today</span>
+                        <div class="col-span-9 row-span-2">
+                            <p class="text-sm">Ievietots:</p>
+                            <p class="text-sm">{{ $listing->posted_at }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pb-2 grid grid-rows-2 grid-cols-10 items-center">
+                        <span class="col-span-1 row-span-2 material-icons pr-1">domain</span>
+                        <div class="col-span-9 row-span-2">
+                            <p class="text-sm">Reģ. nr.:</p>
+                            <p class="text-sm">placeholder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
     </body>
 </html>

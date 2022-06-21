@@ -2,15 +2,17 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Review;
 use App\Models\Company;
+use App\Models\Message;
+use App\Models\JobOffer;
 use App\Models\Education;
 use App\Models\Experience;
-use App\Models\JobOffer;
-use App\Models\Message;
-use App\Models\Review;
-use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -30,18 +32,20 @@ class DatabaseSeeder extends Seeder
         $user->firstname = "Linards";
         $user->surname = "Zīlītis";
         $user->username = "linards123";
-        $user->password = "testpassword";
+        $user->password = Hash::make("Example!123");
         $user->email = "example@aol.com";
         $user->userrole = 1;
+        $user->has_company = true;
         $user->save();
 
         $user = new User;
         $user->firstname = "Admins";
         $user->surname = "Administrators";
         $user->username = "admins12";
-        $user->password = "parole";
+        $user->password = Hash::make("Example!123");
         $user->email = "email@email.email";
         $user->userrole = 2;
+        $user->has_company = false;
         $user->save();
 
         $edu = new Education;
@@ -67,9 +71,7 @@ class DatabaseSeeder extends Seeder
         $msg->save();
 
         $company = new Company;
-        $company->username = "slaistilv";
-        $company->password = "$%TGDRT HG%^ Y%^& BDX";
-        $company->email = "mail16@example.com";
+        $company->userid = 1;
         $company->name = "Slaisti SIA";
         $company->registryid = 23553945;
         $company->about = "Esam laistīšanas uzstādīšanas uzņēmums, juridiska persona lorem ipsum";
@@ -91,23 +93,24 @@ class DatabaseSeeder extends Seeder
         $job->workload = "Pilna laika slodze";
         $job->salary = 900;
         $job->posted_at = date("Y-m-d");
-        $job->description = "<p>Darba apraksts</p>
-        <span>Pievienojies Drogas kolektīvam Rīgā, Centrā, Avotu ielā 26</span>
-        <p>Prasības kandidātiem</p>
-        <span>Latviešu valodas zināšanas</span>
-        <p>Uzņēmums piedāvā</p>
-        <ul>
-            <li>Algu, sākot no 4.00 (stundas likme - jo vairāk strādā, jo vairāk nopelni), (nomaksāti visi nodokļi)</li>
-            <li>Paaugstinātu likmi virsstundās un svētku dienās</li>
-            <li>Ikmēneša prēmijas</li>
-            <li>Dāvanā kosmētikas produktu par katru nostrādāto nedēļu pārbaudes laikā</li>
-            <li>Veselības apdrošināšanu</li>
-            <li>Darbinieka atlaižu karti pirkumiem veikalos Drogas</li>
-            <li>Tev ērtu darba laiku, iespēju apvienot darbu ar mācībām / ģimeni / hobijiem un iegūt vērtīgu darba pieredzi</li>
-            <li>Feinu darba vidu, kur Tev visu iemācīs, Tevi atbalstīs, izklaidēs, piedāvās konkursus un pasniegs dāvanas svētkos</li>
-            <li>Izaugsmes iespējas - ātri kļūt par vecāko pārdevēju / veikala vadītāju / biroja darbinieku</li>
-        </ul>
-        <p>Jebkādi Drogām sniegtie personu dati tiks apstrādāti atbilstoši piemērojamiem tiesību aktiem par datu aizsardzību un tiks izmantoti tikai personāla atlasei. Mēs glabājam personu datus līdz 1 gadam, pēc tam tos anonimizējam vai iznīcinām. Vairāk informācijas par tiesībām uz privātumu un kā sazināties ar mums, atrodams mājas lapā Privātuma politikas sadaļā.</p>";
+         
+$job->description ="<p>Darba apraksts</p>
+<span>Pievienojies Drogas kolektīvam Rīgā, Centrā, Avotu ielā 26</span>
+<p>Prasības kandidātiem</p>
+<span>Latviešu valodas zināšanas</span>
+<p>Uzņēmums piedāvā</p>
+<ul>
+    <li>Algu, sākot no 4.00 (stundas likme - jo vairāk strādā, jo vairāk nopelni), (nomaksāti visi nodokļi)</li>
+    <li>Paaugstinātu likmi virsstundās un svētku dienās</li>
+    <li>Ikmēneša prēmijas</li>
+    <li>Dāvanā kosmētikas produktu par katru nostrādāto nedēļu pārbaudes laikā</li>
+    <li>Veselības apdrošināšanu</li>
+    <li>Darbinieka atlaižu karti pirkumiem veikalos Drogas</li>
+    <li>Tev ērtu darba laiku, iespēju apvienot darbu ar mācībām / ģimeni / hobijiem un iegūt vērtīgu darba pieredzi</li>
+    <li>Feinu darba vidu, kur Tev visu iemācīs, Tevi atbalstīs, izklaidēs, piedāvās konkursus un pasniegs dāvanas svētkos</li>
+    <li>Izaugsmes iespējas - ātri kļūt par vecāko pārdevēju / veikala vadītāju / biroja darbinieku</li>
+</ul>
+<p>Jebkādi Drogām sniegtie personu dati tiks apstrādāti atbilstoši piemērojamiem tiesību aktiem par datu aizsardzību un tiks izmantoti tikai personāla atlasei. Mēs glabājam personu datus līdz 1 gadam, pēc tam tos anonimizējam vai iznīcinām. Vairāk informācijas par tiesībām uz privātumu un kā sazināties ar mums, atrodams mājas lapā Privātuma politikas sadaļā.</p>";
         $job->location = "Rīga, Rīgas iela 3";
         $job->extra_info = "nav papildus informācija";
         $job->save();
