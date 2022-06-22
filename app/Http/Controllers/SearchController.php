@@ -14,7 +14,8 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $offers = DB::table('joboffers')->select('offerid', 'position', 'category', 'description', 'salary', 'name')->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(12);
+        $offers = DB::table('joboffers')->select('offerid', 'position', 'category', 'description', 'salary', 'name')
+        ->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(12);
         foreach($offers as $offer) {
             $offer->description = substr($offer->description, 0, 100);
             if (strlen($offer->description) == 100) {
@@ -45,15 +46,55 @@ class SearchController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+    //retrieve job offers filtered by search request data
+    public function show(Request $request) {
+        //if no search fields were filled, return all jobs paginated
+        if(empty($request->category) && empty($request->location) && empty($request->keywords)) {
+            $offers = DB::table('joboffers')->select('offerid', 'position', 'category', 'description', 'salary', 'name', 'workload', 'posted_at')
+            ->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(2);
+            foreach($offers as $offer) {
+                $offer->description = substr($offer->description, 0, 300);
+                if (strlen($offer->description) == 300) {
+                    $offer->description = $offer->description.'...';
+                }
+            }
+            return view('search_result', compact('offers')); 
+        }
+
+        else {
+            $offers = DB::table('joboffers')->select('offerid', 'position', 'category', 'description', 'salary', 'name', 'workload', 'posted_at')
+            ->join('companies', 'joboffers.companyid', '=', 'companies.companyid');
+            
+            if(!empty($request->category)) {
+            $offers->where('category', 'like', '%'.$request->category.'%');
+            }
+
+            if(!empty($request->location)) {
+                if(empty($request->category)) $offers->where('location', 'like', '%'.$request->location.'%');
+                else $offers->orWhere('location', 'like', '%'.$request->location.'%');
+            }
+
+            if(!empty($request->keywords)) {
+                if (empty($request->category) && empty($request->location)) $offers->where('description', 'like', '%'.$request->keywords.'%');
+                else $offers->orWhere('description', 'like', '%'.$request->keywords.'%');
+
+                $offers->orWhere('position', 'like', '%'.$request->keywords.'%')
+                ->orWhere('salary', 'like', '%'.$request->keywords.'%')
+                ->orWhere('name', 'like', '%'.$request->keywords.'%');
+            }
+
+            $offers = $offers->paginate(2);
+
+            foreach($offers as $offer) {
+                $offer->description = substr($offer->description, 0, 300);
+                if (strlen($offer->description) == 300) {
+                    $offer->description = $offer->description.'...';
+                }
+            }
+
+            return view('search_result', compact('offers'));
+        }
+        
     }
 
     /**

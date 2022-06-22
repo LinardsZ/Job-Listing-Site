@@ -17,6 +17,9 @@ use App\Http\Controllers\JobOffersController;
 //landing page
 Route::get('/', [SearchController::class, 'index']);
 
+//route for search result request
+Route::get('/search', [SearchController::class, 'show'])->name('search.result');
+
 //show detailed information for a single listing
 Route::get('/listing/{id}', [JobOffersController::class, 'show']);
 

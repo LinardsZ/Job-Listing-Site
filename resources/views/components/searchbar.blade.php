@@ -2,11 +2,10 @@
     <p class="font-bold text-5xl text-gray-600 select-none">Search for any job!</p>
 </div>
 <div class="flex items-center justify-center">
-        <form method="GET" class="flex border-2 rounded" action="/show">
-            <input type="" class="px-4 py-2 border-l w-36" placeholder="Category">
-            <input type="" class="px-4 py-2 border-l w-36" placeholder="Location">
-            <input type="text" class="px-4 py-2 w-80 border-l" placeholder="Enter a keyword...">
-            <input name="_token" type="hidden" value="{{ csrf_token() }}">
+        <form method="GET" class="flex border-2 rounded" onsubmit="return validateSearch()" action="{{ route('search.result') }}">
+            <input type="text" id="category" class="px-4 py-2 border-l w-36 placeholder:text-slate-400 placeholder:italic" name="category" placeholder="Category">
+            <input type="text" id="location" class="px-4 py-2 border-l w-36 placeholder:text-slate-400 placeholder:italic" name="location" placeholder="Location">
+            <input type="text" id="keywords" class="px-4 py-2 w-80 border-l placeholder:italic" name="keywords" placeholder="Enter a keyword...">
             <button class="flex items-center justify-center px-4 border-l" type="submit">
                 <svg class="w-6 h-6 text-gray-600" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
                      viewBox="0 0 24 24">
