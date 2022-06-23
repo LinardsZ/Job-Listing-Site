@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('userid')->constrained('users');
             $table->string('institution', 50);
             $table->integer('startyear');
-            $table->integer('endyear');
+            $table->integer('endyear')->nullable();
             $table->string('program', 50);
             $table->timestamps();
         });

@@ -91,8 +91,8 @@ class SearchController extends Controller
                     $offer->description = $offer->description.'...';
                 }
             }
-
-            return view('search_result', compact('offers'));
+            $input = $request->keywords;
+            return view('search_result', compact('offers', 'input'));
         }
         
     }

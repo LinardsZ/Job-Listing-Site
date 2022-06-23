@@ -18,9 +18,12 @@
     <div class="top-nav w-full inline-flex flex-grow w-auto">
         @auth
         <div id="navigation" class="inline-flex flex-row ml-auto flex">
-            <a href="#" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
-                <span>Profile</span>
-            </a>
+            <form class="inline" method="POST" action="{{ route('profile') }}">
+            @csrf
+                <span href="#" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
+                    <input class="cursor-pointer" type="submit" value="Profile">
+                </span>
+            </form>
             <form class="inline" method="POST" action="{{ route('logout') }}">
                 @csrf
                 <span href="#" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">

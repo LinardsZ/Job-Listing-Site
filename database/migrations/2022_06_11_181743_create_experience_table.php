@@ -18,8 +18,8 @@ return new class extends Migration
             $table->foreignId('userid')->constrained('users');
             $table->string('workplace', 50);
             $table->integer('startyear');
-            $table->integer('endyear');
-            $table->string('position', 30);
+            $table->integer('endyear')->nullable();
+            $table->string('position', 50);
             $table->timestamps();
         });
     }

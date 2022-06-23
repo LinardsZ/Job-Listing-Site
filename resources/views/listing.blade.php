@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
 		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Job Listings - {{ $listing->position }}</title>
+		<title>{{ $listing->position }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -15,14 +15,20 @@
                 <div class="flex items-center">
                     <img class="h-32 w-32 ml-6 border border-neutral-200 select-none" src="{{ asset('unnamed.png') }}">
                 </div>
-                <div class="flex-1 px-4 font-bold text-4xl text-gray-600 break-normal select-none ">
-                    {{ $listing->position }} pārdevējs/a - konsultants/e Rīgā, Avotu ielā 26
+                <div class="flex-1 px-4">
+                    <p class="font-bold text-2xl text-gray-600 break-all select-none">{{ $listing->position }}</p>
+                    <p class="italic text-gray-700 pt-2 pb-16">{{ $data[0]->name }}</p>
                 </div>
                 <div class="flex flex-col pr-4 justify-center">
-                    <a class="block font-bold text-white text-center mb-4 p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
+                    @auth
+                    <a href="mailto:{{ $data[0]->email }}" class="block font-bold text-white text-center mb-4 p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
                     ease-in-out duration-300 cursor-pointer select-none">Nosūtīt e-pastu</a>
                     <a class="block font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
                     ease-in-out duration-300 cursor-pointer select-none">Uzsākt saraksti</a>
+                    @else
+                    <a href="mailto:{{ $data[0]->email }}" class="block font-bold text-white text-center mb-4 p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
+                    ease-in-out duration-300 cursor-pointer select-none">Nosūtīt e-pastu</a>
+                    @endauth
                 </div>
             </div>
             <div class="flex justify-between flex-row bg-neutral-50 p-4 border-x border-b border-neutral-200">

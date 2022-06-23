@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Experience;
+use App\Models\Education;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\Password;
@@ -21,11 +23,24 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        //
+        $user = Auth::user();
+        $id = Auth::id();
+        $data = DB::table('users')->select('firstname', 'surname', 'email', 'has_company')->where('userid', '=', $id)->first();
+
+        $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
+        ->select('institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
+
+        $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
+        ->select('workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
+        return view('profile', compact('data', 'education', 'experience'));
     }
 
     // Show view for registering
     public function create() {
+        if(Auth::check()) {
+            redirect('/');
+        }
+
         return view('register');
     }
 
@@ -57,6 +72,10 @@ class UsersController extends Controller
 
     // Show view for logging in.
     public function show() {
+        if(Auth::check()) {
+            redirect('/');
+        }
+
          return view('login');
     }
 
@@ -67,10 +86,17 @@ class UsersController extends Controller
             'password' => ['required', Password::min(8)->mixedCase()->numbers()->symbols()]
         ];
         $credentials = $request->validate($rules);
-
-        if(Auth::attempt($credentials)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/')->with('message', 'Successfully logged in !');
+        if($request->remember_me) {
+            if(Auth::attempt($credentials, true)) {
+                $request->session()->regenerate();
+                return redirect()->intended('/')->with('message', 'Successfully logged in !');
+            }
+        }
+        else {
+            if(Auth::attempt($credentials)) {
+                $request->session()->regenerate();
+                return redirect()->intended('/')->with('message', 'Successfully logged in !');
+            }
         }
 
         return back()->withErrors(['warning' => 'Invalid username or password.']);
