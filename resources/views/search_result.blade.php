@@ -17,22 +17,6 @@
             <p class="font-bold text-gray-600 select-none mt-12 mb-4 text-lg">Search results</p>
             <div class="flex flex-col mb-32">
                 @foreach($offers as $offer)
-                <!-- <div class="bg-neutral-50 border border-gray-300 p-4 rounded">
-                    <div class="flex">
-                        <a href="/listing/{{ $offer->offerid }}"><p class="text-xl uppercase font-bold hover:text-emerald-700">{{ $offer->position }}</p></a>
-                        <p class="select-none border border-emerald-700 rounded ml-auto bg-emerald-700 p-1 text-white font-bold">{{ $offer->salary }} €/mēn</p>
-                    </div>
-
-                    <div class="flex">
-                        <p class="pb-4 italic">{{ $offer->name }}</p>
-                        <p class="ml-auto">{{ $offer->workload }}</p>	
-                    </div>
-                            
-                    <div class="flex">
-                        <p class="">{{ $offer->description }}</p>
-                            <p class="ml-auto">Ievietots: {{ $offer->posted_at }}</p>
-                    </div>
-                </div> -->
                 <div class="bg-neutral-50 border border-gray-300 p-4 rounded flex flex-row space-between">
                         <div class="grow-0 pr-2">
                             <a href="/listing/{{ $offer->offerid }}">
@@ -43,9 +27,9 @@
                         </div>
                         
                         <div class="ml-auto flex flex-col justify-start shrink-0">
-                            <p class="inline select-none border border-emerald-700 rounded ml-auto bg-emerald-700 p-2 text-white font-bold text-center">{{ $offer->salary }} €/mēn</p>
+                            <p class="inline select-none border border-emerald-700 rounded ml-auto bg-emerald-700 p-2 text-white font-bold text-center">{{ $offer->salary }} €/month</p>
                             <p class="inline py-2 text-end">{{ $offer->workload }}</p>
-                            <p class="inline text-end">Ievietots: {{ $offer->posted_at }}</p>
+                            <p class="inline text-end">Posted at: {{ $offer->posted_at }}</p>
                         </div>
                 </div>
                 @endforeach

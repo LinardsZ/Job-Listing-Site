@@ -17,22 +17,40 @@ use Symfony\Component\Console\Input\Input;
 
 class UsersController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // Retrieve data and view for user's profile
     public function index() {
-        $user = Auth::user();
         $id = Auth::id();
-        $data = DB::table('users')->select('firstname', 'surname', 'email', 'has_company')->where('userid', '=', $id)->first();
+        $representsCompany = DB::table('users')->select('has_company')->where('userid', '=', $id)->first();
 
-        $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
-        ->select('institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
+        if($representsCompany->has_company == 1) {
+            $company = DB::table('companies')
+            ->select('users.firstname', 'users.surname', 'companies.name', 'registryid', 'about', 'homepage', 'location', 'companyid')
+            ->join('users', 'users.userid', '=', 'companies.userid')->where('users.userid', '=', $id)->first();
 
-        $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
-        ->select('workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
-        return view('profile', compact('data', 'education', 'experience'));
+            // if the account has not created a company entry in the database, redirect to create form
+            if(empty($company)) {
+                return redirect()->route('add.company');
+            }
+
+            $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
+            ->where('companyid', '=', $company->companyid)->get();
+
+            $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+
+            return view('company_profile', compact('company', 'joboffers', 'user'));
+        }
+
+        else {
+            $data = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', $id)->first();
+
+            $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
+            ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
+
+            $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
+            ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
+            return view('user_profile', compact('data', 'education', 'experience'));
+        }
+        
     }
 
     // Show view for registering
@@ -102,6 +120,7 @@ class UsersController extends Controller
         return back()->withErrors(['warning' => 'Invalid username or password.']);
     }
 
+    // Logout currently authenticated user
     public function logout(Request $request) {
         auth()->logout();
         $request->session()->invalidate();

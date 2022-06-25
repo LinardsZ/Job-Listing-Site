@@ -13,7 +13,7 @@
         <x-navbar/>
         <div class="flex flex-row bg-neutral-50 border b-l-1">
             <div class="basis-1/7 mr-2">
-                <img class="h-64 w-64 m-8 border rounded-full border-neutral-200 select-none" src="{{ asset('unnamed.png') }}">
+                <img class="h-64 w-64 m-8 border border-neutral-200 select-none" src="{{ asset('no-image.png') }}">
             </div>    
             <div class="basis-5/7 shrink-0 pt-12 flex flex-col justify-center">
                 <p class="text-5xl text-gray-700 font-bold capitalize pb-8">{{ $data->firstname }} {{ $data->surname }}</p>
@@ -48,6 +48,12 @@
                             @endif
                             </span>
                         </p>
+                        <a href="/experience/edit/{{$item->expid}}" class="mt-4 font-bold text-gray-700 underline text-sm cursor-pointer hover:text-emerald-700">Update</a>
+                        <form class="inline" action="/experience/delete/{{$item->expid}}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <input type="submit" value="Delete" class="mt-4 font-bold text-gray-700 underline text-sm cursor-pointer hover:text-emerald-700">
+                        </form>
                     </div>
                 @endforeach
                 </div>
@@ -77,6 +83,12 @@
                             @endif
                             </span>
                         </p>
+                        <a href="/education/edit/{{$item->eduid}}" class="mt-4 font-bold text-gray-700 underline text-sm cursor-pointer hover:text-emerald-700">Update</a>
+                        <form class="inline" action="/education/delete/{{$item->eduid}}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <input type="submit" value="Delete" class="mt-4 font-bold text-gray-700 underline text-sm cursor-pointer hover:text-emerald-700">
+                        </form>
                     </div>
                 @endforeach
                 </div>

@@ -29,13 +29,18 @@ function closeEduForm() {
 
 function showEduForm() {
     let eduform = document.getElementById('eduform')
+    let error_edu = document.getElementById('error_edu')
+
     eduform.style.display = "flex"
+    error_edu.style.display = "none"
 }
 
 function validateEduForm() {
     let institution = document.getElementById('institution')
     let program = document.getElementById('program')
     let error_edu = document.getElementById('error_edu')
+    let startyear = document.getElementById('startyear_edu')
+    let endyear = document.getElementById('endyear_edu')
     let send = true
 
     error_edu.textContent = ""
@@ -46,6 +51,11 @@ function validateEduForm() {
     }
     if(institution.value.length > 50 || program.value.length > 50) {
         error_edu.textContent = "Text fields must not be greater than 50 characters."
+        send = false
+    }
+
+    if (startyear.value > endyear.value && endyear.value.length != 0) {
+        error_edu.textContent = "Start year must not be higher than end year."
         send = false
     }
 

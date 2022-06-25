@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('companyid');
             $table->foreignId('userid')->constrained('users');
             $table->string('name', 50);
-            $table->integer('registryid');
+            $table->char('registryid', 11);
             $table->text('about');
             $table->string('homepage', 30);
             $table->string('location', 30);

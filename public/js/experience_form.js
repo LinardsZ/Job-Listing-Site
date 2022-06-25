@@ -38,6 +38,8 @@ function validateExpForm() {
     let position = document.getElementById('position')
     let workplace = document.getElementById('workplace')
     let error_exp = document.getElementById('error_exp')
+    let startyear = document.getElementById('startyear_exp')
+    let endyear = document.getElementById('endyear_exp')
     let send = true
 
     error_exp.textContent = ""
@@ -48,6 +50,11 @@ function validateExpForm() {
     }
     if(position.value.length > 50 || workplace.value.length > 50) {
         error_exp.textContent = "Text fields must not be greater than 50 characters."
+        send = false
+    }
+
+    if (startyear.value > endyear.value && endyear.value.length != 0) {
+        error_exp.textContent = "Start year must not be higher than end year."
         send = false
     }
 

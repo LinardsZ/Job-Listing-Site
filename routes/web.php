@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\JobOffersController;
+use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\JobOfferController;
+use Illuminate\Auth\Middleware\Authenticate;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
-use Illuminate\Auth\Middleware\Authenticate;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,6 @@ Route::get('/', [SearchController::class, 'index']);
 //route for search result request
 Route::get('/search', [SearchController::class, 'show'])->name('search.result');
 
-//show detailed information for a single listing
-Route::get('/listing/{id}', [JobOffersController::class, 'show']);
-
 //registration routes
 Route::get('/register', [UsersController::class, 'create'])->middleware('guest')->name('register');
 Route::post('/users', [UsersController::class, 'store'])->middleware('guest')->name('create.user');
@@ -41,5 +39,34 @@ Route::post('/profile', [UsersController::class, 'index'])->middleware('auth')->
 //add experience entry
 Route::post('/experience/add', [ExperienceController::class, 'store'])->middleware('auth')->name('experience');
 
+//edit, update and delete experience entries
+Route::get('/experience/edit/{id}', [ExperienceController::class, 'edit'])->middleware('auth');
+Route::post('/experience/update', [ExperienceController::class, 'update'])->middleware('auth')->name('set.exp');
+Route::delete('/experience/delete/{id}', [ExperienceController::class, 'destroy'])->middleware('auth');
+
 //add education entry
 Route::post('/education/add', [EducationController::class, 'store'])->middleware('auth')->name('education');
+
+//edit, update and delete education entries
+Route::get('/education/edit/{id}', [EducationController::class, 'edit'])->middleware('auth');
+Route::post('/education/update', [EducationController::class, 'update'])->middleware('auth')->name('set.edu');
+Route::delete('/education/delete/{id}', [EducationController::class, 'destroy'])->middleware('auth');
+
+//show form for adding and storing a company
+Route::get('/company/add', [CompanyController::class, 'index'])->middleware('auth')->name('add.company');
+Route::post('/company/add', [CompanyController::class, 'store'])->middleware('auth')->name('store.company');
+
+//edit and update company details
+Route::get('company/edit', [CompanyController::class, 'edit'])->middleware('auth')->name('edit.company');
+Route::post('company/update', [CompanyController::class, 'update'])->middleware('auth')->name('set.company');
+
+//show detailed information for a single listing
+Route::get('/listing/{id}', [JobOfferController::class, 'show']);
+
+//add a new joboffer
+Route::post('/offer/add', [JobOfferController::class, 'store'])->middleware('auth')->name('add.offer');
+
+//edit, update and delete job offers
+Route::get('/offer/edit/{id}', [JobOfferController::class, 'edit'])->middleware('auth')->name('edit.offer');
+Route::post('/offer/set', [JobOfferController::class, 'update'])->middleware('auth')->name('set.offer');
+Route::delete('/offer/delete/{id}', [JobOfferController::class, 'destroy'])->middleware('auth')->name('delete.offer');

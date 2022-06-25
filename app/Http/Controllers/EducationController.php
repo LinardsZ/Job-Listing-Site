@@ -56,11 +56,11 @@ class EducationController extends Controller
         $data = DB::table('users')->select('firstname', 'surname', 'email', 'has_company')->where('userid', '=', $id)->first();
 
         $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
-        ->select('institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
 
         $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
-        ->select('workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
-        return view('profile', compact('data', 'education', 'experience'));
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
+        return view('user_profile', compact('data', 'education', 'experience'));
     }
 
     /**
@@ -82,7 +82,9 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        //
+        $edu = DB::table('education')->select('eduid', 'institution', 'program', 'startyear', 'endyear')->where('eduid', '=', $id)->first();
+
+        return view('edit_education', compact('edu'));
     }
 
     /**
@@ -92,9 +94,32 @@ class EducationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $rules = [
+            'institution' => ['nullable', 'max:50'],
+            'program' => ['nullable', 'max:50'],
+            'startyear' => ['nullable', 'integer', 'between:1980,2022'],
+            'endyear' => ['nullable', 'integer', 'between:1980,2022']
+        ];
+
+        $request->validate($rules);
+
+        $edu = Education::find($request->eduid);
+        if(filled($request->institution)) $edu->institution = $request->institution;
+        if(filled($request->program)) $edu->program = $request->program;
+        if(filled($request->startyear)) $edu->startyear = $request->startyear;
+        if(filled($request->endyear)) $edu->endyear = $request->endyear;
+        $edu->save();
+
+        $data = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+
+        $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();
+
+        $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', Auth::id())->get();
+        return view('user_profile', compact('data', 'education', 'experience'));
     }
 
     /**
@@ -105,6 +130,15 @@ class EducationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Education::destroy($id);
+
+        $data = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+
+        $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();
+
+        $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', Auth::id())->get();
+        return view('user_profile', compact('data', 'education', 'experience'));
     }
 }

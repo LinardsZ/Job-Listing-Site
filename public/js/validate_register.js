@@ -43,7 +43,7 @@ function validateRegister() {
         error_surname.textContent = "The surname field is required."
         send = false
     } 
-    else if(surname.value.length > 30 && surname.value.length != 0) {
+    else if(surname.value.length > 30) {
         error_surname.textContent = "The surname must not be greater than 30 characters."
         send = false
     } 
@@ -57,7 +57,7 @@ function validateRegister() {
         error_username.textContent = "The username field is required."
         send = false
     }
-    else if(username.value.length > 20 && username.value.length != 0) {
+    else if(username.value.length > 20) {
         error_username.textContent = "The username must not be greater than 20 characters."
         send = false
     }
