@@ -6,11 +6,11 @@
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
 		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Edit Company Details</title>
+		<title>Updating {{ $user->firstname }} {{ $user->surname }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
-        <div class="my-24 mx-auto w-1/2">
+        <div class="my-16 mx-auto w-1/2">
             <div class="mb-12">
                 <svg class="block fill-emerald-700 h-24 w-24 mx-auto" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
                     viewBox="0 0 13.611 13.493"  xml:space="preserve">
@@ -25,35 +25,13 @@
                 </svg>
             </div>
             
-            <p class="text-md text-center mb-8 mt-24">Editing <span class="font-bold text-gray-700 capitalize">{{ $data->name }}</span> details:</p>
-            <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('set.company') }}" method="POST" enctype="multipart/form-data">
+            <p class="text-md text-center mb-8 mt-16">Updating user profile for <span class="font-bold text-gray-700 capitalize">{{ $user->firstname }} {{ $user->surname }}</span>:</p>
+            <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('set.profile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <label class="w-1/3 font-bold" for="name">Name of the company:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-name">
-                    @error('name')
-                    {{ $message }}
-                    @enderror
-                </span>
-                <input class="border border-red-900 mb-4 w-1/3" type="text" id="name" name="name" value="">
+                <input type="hidden" name="userid" value="{{ $user->userid }}">
 
-                <label class="w-1/3 font-bold" for="registryid">Registry ID:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-registryid">
-                    @error('registryid')
-                    {{ $message }}
-                    @enderror
-                </span>
-                <input class="border border-red-900 mb-4 w-1/3" type="text" id="registryid" name="registryid" value="">
-
-                <label class="w-1/3 font-bold" for="email">Email:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-email">
-                    @error('email')
-                    {{ $message }}
-                    @enderror
-                </span>
-                <input class="border border-red-900 mb-4 w-1/3" type="text" id="email" name="email" value="">
-
-                <label class="w-1/3 font-bold" for="firstname">First name:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-firstname">
+                <label class="w-1/3 font-bold" for="First name">First name:</label>
+                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-firstname">
                     @error('firstname')
                     {{ $message }}
                     @enderror
@@ -61,33 +39,21 @@
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="firstname" name="firstname" value="">
 
                 <label class="w-1/3 font-bold" for="surname">Surname:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-surname">
+                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-surname">
                     @error('surname')
                     {{ $message }}
                     @enderror
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="surname" name="surname" value="">
 
-                <label class="w-1/3 font-bold" for="homepage">Homepage:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-homepage">
-                    @error('homepage')
+                <label class="w-1/3 font-bold" for="email">Email:</label>
+                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-email">
+                    @error('email')
                     {{ $message }}
                     @enderror
                 </span>
-                <input class="border border-red-900 mb-4 w-1/3" type="text" id="homepage" name="homepage" value="">
-
-                <label class="w-1/3 font-bold" for="location">Location:</label>
-                <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-location">
-                    @error('location')
-                    {{ $message }}
-                    @enderror
-                </span>
-                <input class="border border-red-900 mb-4 w-1/3" type="text" id="location" name="location" value="">
-
-                <label class="w-1/3 font-bold" for="about">About:</label>
-                <textarea class="border border-red-900 mb-4 w-1/3 text-sm" rows="5" id="about" name="about"></textarea>
+                <input class="border border-red-900 mb-4 w-1/3" type="text" id="email" name="email" value="">
                 <input type="file" accept=".jpg,.png,.jpeg,.jfif" name="picture">
-
 
                 <p class="text-md text-center mb-8 mt-12 font-bold text-gray-700">Change your password (if needed):</p>
 
@@ -110,6 +76,6 @@
                 <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
             </form>
         </div>
-        <script src="{{ asset('js/validate_editcompany.js') }}"></script>
+        <script src="{{ asset('js/validate_editprofile.js') }}"></script>
     </body>
 </html>

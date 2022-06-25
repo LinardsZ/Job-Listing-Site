@@ -27,7 +27,7 @@
             </div>
             
             <p class="font-bold text-md text-gray-700 text-center mb-8 mt-24">Fill out this form to add information about the company you represent:</p>
-            <form class="flex flex-col items-center" onsubmit="return validateForm()" action="{{ route('store.company') }}" method="POST">
+            <form class="flex flex-col items-center" onsubmit="return validateForm()" action="{{ route('store.company') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <label class="w-1/3 font-bold" for="name">Name of the company:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-name">
@@ -68,6 +68,8 @@
                     @enderror
                 </span>
                 <textarea class="border border-red-900 mb-4 w-1/3 text-sm" rows="5" id="about" name="about"></textarea>
+
+                <input type="file" accept=".jpg,.png,.jpeg,.jfif" name="picture">
 
                 <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
             </form>

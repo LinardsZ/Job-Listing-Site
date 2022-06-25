@@ -7,8 +7,10 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let error_email = document.getElementById('error-email')
     let error_firstname = document.getElementById('error-firstname')
     let error_surname = document.getElementById('error-surname')
+    let error_password = document.getElementById('error-password')
+    let error_newpassword = document.getElementById('error-newpassword')
 
-    errors.push(error_name, error_registryid, error_homepage, error_location, error_email, error_firstname, error_surname)
+    errors.push(error_name, error_registryid, error_homepage, error_location, error_email, error_firstname, error_surname, error_password, error_newpassword)
 
     for(let i = 0; i < errors.length; ++i) {
         if(errors[i].innerText.length == 0) {
@@ -29,8 +31,10 @@ function validateEditForm() {
     let error_email = document.getElementById('error-email')
     let error_firstname = document.getElementById('error-firstname')
     let error_surname = document.getElementById('error-surname')
+    let error_password = document.getElementById('error-password')
+    let error_newpassword = document.getElementById('error-newpassword')
 
-    errors.push(error_name, error_registryid, error_homepage, error_location, error_email, error_firstname, error_surname)
+    errors.push(error_name, error_registryid, error_homepage, error_location, error_email, error_firstname, error_surname, error_password, error_newpassword)
 
     let name = document.getElementById('name')
     let registryid = document.getElementById('registryid')
@@ -39,6 +43,8 @@ function validateEditForm() {
     let email = document.getElementById('email')
     let firstname = document.getElementById('firstname')
     let surname = document.getElementById('surname')
+    let password = document.getElementById('password')
+    let newpassword = document.getElementById('newpassword')
     let send = true
 
     error_name.textContent = ""
@@ -48,6 +54,8 @@ function validateEditForm() {
     error_email.textContent = ""
     error_firstname.textContent = ""
     error_surname.textContent = ""
+    error_password.textContent = ""
+    error_newpassword.textContent = ""
 
     //first name validation
     let name_pattern = /^[a-zA-Z\u0080-\u00FF\u0100-\u017F\u0180-\u024F]+$/
@@ -67,7 +75,7 @@ function validateEditForm() {
         send = false
     } 
     else if(!name_pattern.test(surname.value) && surname.value.length != 0) {
-        error_surname.textContent = "The surname must only contain letters"
+        error_surname.textContent = "The surname must only contain letters."
         send = false
     }
 
@@ -125,7 +133,23 @@ function validateEditForm() {
         send = false
     }
 
-   
+   //password
+   let password_pattern = /^[a-z0-9]+$/
+   if(newpassword.value.length != 0) {
+       if(newpassword.value.length < 8) {
+           error_newpassword.textContent = "The new password must be at least 8 characters."
+           send = false
+       }
+       else if(password_pattern.test(newpassword.value)) {
+           error_newpassword.textContent = "New password must contain at least one capital letter or symbol."
+           send = false
+       }
+       else if(password.value.length == 0) {
+           error_password.textContent = "The password field is required in order to update passwords."
+           send = false
+       }
+   }
+
     for(let i = 0; i < errors.length; ++i) {
         if(errors[i].innerText.length == 0) {
             errors[i].style.display = "none"

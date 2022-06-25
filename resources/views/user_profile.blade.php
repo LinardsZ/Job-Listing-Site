@@ -13,7 +13,12 @@
         <x-navbar/>
         <div class="flex flex-row bg-neutral-50 border b-l-1">
             <div class="basis-1/7 mr-2">
-                <img class="h-64 w-64 m-8 border border-neutral-200 select-none" src="{{ asset('no-image.png') }}">
+                <img class="h-64 w-64 m-8 border rounded-full border-neutral-200 select-none" 
+                src="@if(file_exists('storage/avatars/'.$data->userid.'.jpg'))
+                    {{ asset('storage/avatars/'.$data->userid.'.jpg') }}
+                    @else
+                    {{ asset('no-image.png') }}
+                    @endif">
             </div>    
             <div class="basis-5/7 shrink-0 pt-12 flex flex-col justify-center">
                 <p class="text-5xl text-gray-700 font-bold capitalize pb-8">{{ $data->firstname }} {{ $data->surname }}</p>
@@ -23,7 +28,7 @@
                 </div>
             </div>
             <div class="basis-1/7 grow-0 shrink-0 ml-auto mr-24 flex items-center">
-                <a href="" class="block font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
+                <a href="{{ route('edit.profile') }}" class="block font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
                     ease-in-out duration-300 cursor-pointer select-none">Edit Profile</a>
             </div>
         </div>

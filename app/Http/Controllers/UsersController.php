@@ -35,13 +35,13 @@ class UsersController extends Controller
             $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
             ->where('companyid', '=', $company->companyid)->get();
 
-            $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+            $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
             return view('company_profile', compact('company', 'joboffers', 'user'));
         }
 
         else {
-            $data = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', $id)->first();
+            $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $id)->first();
 
             $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
             ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
@@ -128,25 +128,43 @@ class UsersController extends Controller
         return redirect('/')->with('message', 'Successfully logged out !');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id) {
-        //
+    // Show view for updating profile information
+    public function edit() {
+        $user = DB::table('users')->where('userid', '=', Auth::id())->first();
+        return view('edit_profile', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id) {
-        //
+    // Update requested user in database
+    public function update(Request $request) {
+        $rules = [
+            'firstname' => ['nullable', 'alpha', 'max:30'],
+            'surname' => ['nullable', 'alpha', 'max:30'],
+            'email' => ['nullable', 'email', 'max:100'],
+            'password' => ['nullable', Password::min(8)->letters()->mixedCase()->symbols()->numbers(), 'current_password'],
+            'newpassword' => ['nullable', Password::min(8)->letters()->mixedCase()->symbols()->numbers()]
+        ];
+
+        $request->validate($rules);
+
+        $user = User::find($request->userid);
+        if(filled($request->firstname)) $user->firstname = $request->firstname;
+        if(filled($request->surname)) $user->surname = $request->surname;
+        if(filled($request->email)) $user->email = $request->email;
+        if(filled($request->newpassword)) $user->password = Hash::make($request->newpassword);
+        if($request->hasFile('picture')) {
+            $extension = $request->file('picture')->extension();
+            $request->file('picture')->storeAs('public/avatars', Auth::id().'.'.$extension);
+        }
+        $user->save();
+
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+
+        $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();
+
+        $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', Auth::id())->get();
+        return view('user_profile', compact('data', 'education', 'experience'));
     }
 
     /**

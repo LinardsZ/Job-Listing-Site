@@ -13,7 +13,12 @@
         <x-navbar/>
         <div class="flex flex-row bg-neutral-50 border b-l-1">
             <div class="basis-1/7 mr-2">
-                <img class="h-64 w-64 m-8 border border-neutral-200 select-none" src="{{ asset('no-image.png') }}">
+                <img class="h-64 w-64 m-8 border rounded-full border-neutral-200 select-none" 
+                src="@if(file_exists('storage/avatars/'.$user->userid.'.jpg'))
+                {{ asset('storage/avatars/'.$user->userid.'.jpg') }}
+                @else
+                {{ asset('no-image.png') }}
+                @endif">
             </div>    
             <div class="basis-5/7 shrink-0 pt-12 flex flex-col justify-center">
                 <p class="text-5xl text-gray-700 font-bold capitalize pb-2">{{ $company->name }}</p>

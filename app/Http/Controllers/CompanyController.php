@@ -8,8 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
+use Symfony\Component\Console\Input\Input;
 
 class CompanyController extends Controller
 {
@@ -61,6 +63,10 @@ class CompanyController extends Controller
         $new_company->registryid = $request->registryid;
         $new_company->homepage = $request->homepage;
         $new_company->location = $request->location;
+        if($request->hasFile('picture')) {
+            $extension = $request->file('picture')->extension();
+            $request->file('picture')->storeAs('public/avatars', Auth::id().'.'.$extension);
+        }
         $new_company->save();
 
 
@@ -71,7 +77,7 @@ class CompanyController extends Controller
         $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
         ->where('companyid', '=', $company->companyid)->get();
 
-        $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
@@ -115,7 +121,9 @@ class CompanyController extends Controller
             'location' => ['nullable', 'max:30'],
             'email' => ['nullable', 'email', 'max:100'],
             'firstname' => ['nullable', 'alpha', 'max:30'],
-            'surname' => ['nullable', 'alpha', 'max:30']
+            'surname' => ['nullable', 'alpha', 'max:30'],
+            'password' => ['nullable', Password::min(8)->letters()->mixedCase()->symbols()->numbers(), 'current_password'],
+            'newpassword' => ['nullable', Password::min(8)->letters()->mixedCase()->symbols()->numbers()]
         ];
 
         $messages = [
@@ -148,9 +156,14 @@ class CompanyController extends Controller
         if(filled($request->firstname)) $update_user->firstname = $request->firstname;
         if(filled($request->surname)) $update_user->surname = $request->surname;
         if(filled($request->email)) $update_user->email = $request->email;
+        if(filled($request->newpassword)) $update_user->password = Hash::make($request->newpassword);
+        if($request->hasFile('picture')) {
+            $extension = $request->file('picture')->extension();
+            $request->file('picture')->storeAs('public/avatars', Auth::id().'.'.$extension);
+        }
         $update_user->save();
 
-        $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }

@@ -13,7 +13,12 @@
         <div class="flex flex-col w-1/2 mx-auto my-24">
             <div class="flex flex-row bg-neutral-50 border border-neutral-200 py-4">
                 <div class="flex items-center">
-                    <img class="h-32 w-32 ml-6 select-none" src="{{ asset('no-image.png') }}">
+                    <img class="h-32 w-32 ml-6 select-none" 
+                    src="@if(file_exists('storage/avatars/'.$data->userid.'.jpg'))
+                    {{ asset('storage/avatars/'.$data->userid.'.jpg') }}
+                    @else
+                    {{ asset('no-image.png') }}
+                    @endif">
                 </div>
                 <div class="flex-1 px-4">
                     <p class="font-bold text-2xl text-gray-600 break-all select-none">{{ $listing->position }}</p>
@@ -33,7 +38,7 @@
             </div>
             <div class="flex justify-between flex-row bg-neutral-50 p-4 border-x border-b border-neutral-200">
                 <pre class="float-right whitespace-pre-wrap font-sans">{{ $listing->description }}</pre>
-                
+
                 <div class="float-left flex flex-col shrink-0 grow-0 pl-4">
                     <p class="inline font-bold pb-8 text-lg text-gray-600">Information about the offer</p>
                     

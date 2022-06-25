@@ -51,7 +51,7 @@ class ExperienceController extends Controller
 
         $user = Auth::user();
         $id = Auth::id();
-        $data = DB::table('users')->select('firstname', 'surname', 'email', 'has_company')->where('userid', '=', $id)->first();
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email', 'has_company')->where('userid', '=', $id)->first();
 
         $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
         ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
@@ -110,7 +110,7 @@ class ExperienceController extends Controller
         if(filled($request->endyear)) $exp->endyear = $request->endyear;
         $exp->save();
 
-        $data = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
         ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();
@@ -130,7 +130,7 @@ class ExperienceController extends Controller
     {
         Experience::destroy($id);
 
-        $data = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
         ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();

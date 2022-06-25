@@ -84,6 +84,6 @@
                 <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
             </form>
         </div>
-        <!-- <script src="{{ asset('js/validate_editoffer.js') }}"></script> -->
+        <script src="{{ asset('js/validate_editoffer.js') }}"></script>
     </body>
 </html>

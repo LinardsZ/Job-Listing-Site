@@ -7,6 +7,7 @@ use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class JobOfferController extends Controller
 {
@@ -62,7 +63,7 @@ class JobOfferController extends Controller
         $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
         ->where('companyid', '=', $company->companyid)->get();
 
-        $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
@@ -76,7 +77,7 @@ class JobOfferController extends Controller
     public function show($id)
     {
         $listing = JobOffer::findOrFail($id);
-        $data = DB::table('users')->select('users.email', 'companies.name', 'companies.registryid')->join('companies', 'users.userid', '=', 'companies.userid')
+        $data = DB::table('users')->select('companies.userid', 'users.email', 'companies.name', 'companies.registryid')->join('companies', 'users.userid', '=', 'companies.userid')
         ->join('joboffers', 'companies.companyid', '=', 'joboffers.companyid')->where('joboffers.offerid', '=', $id)->first();
         
         return view('listing', compact('listing', 'data'));
@@ -136,7 +137,7 @@ class JobOfferController extends Controller
         $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
         ->where('companyid', '=', $company->companyid)->get();
 
-        $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
@@ -161,7 +162,7 @@ class JobOfferController extends Controller
         $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
         ->where('companyid', '=', $company->companyid)->get();
 
-        $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
 
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
