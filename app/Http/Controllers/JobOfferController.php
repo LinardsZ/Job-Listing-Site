@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\User;
 use App\Models\JobOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class JobOfferController extends Controller
@@ -64,7 +66,7 @@ class JobOfferController extends Controller
         ->where('companyid', '=', $company->companyid)->get();
 
         $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
-
+        
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
 
@@ -91,8 +93,12 @@ class JobOfferController extends Controller
      */
     public function edit($id)
     {   
-        $offer = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'companies.name')
+        $offer = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'companies.name', 'companies.userid')
         ->join('companies', 'companies.companyid', '=', 'joboffers.companyid')->where('offerid', '=', $id)->first();
+
+        if(Auth::id() != $offer->userid && !Gate::allows('isAdmin', auth()->user())) {
+            abort(403);
+        }
 
         return view('edit_joboffer', compact('offer'));
     }
@@ -117,6 +123,11 @@ class JobOfferController extends Controller
         ];
 
         $request->validate($rules);
+        $uid = DB::table('joboffers')->select('companies.userid', 'joboffers.companyid')->join('companies', 'companies.companyid', '=', 'joboffers.companyid')
+        ->where('joboffers.offerid', '=', $request->offerid)->first();
+        if(Auth::id() != $uid->userid && !Gate::allows('isAdmin', auth()->user())) {
+            abort(403);
+        }
 
         $joboffer = JobOffer::find($request->offerid);
         if(filled($request->position)) $joboffer->position = $request->position;
@@ -130,15 +141,24 @@ class JobOfferController extends Controller
 
         $company = DB::table('companies')
         ->select('users.firstname', 'users.surname', 'companies.name', 'registryid', 'about', 'homepage', 'location', 'companyid')
-        ->join('users', 'users.userid', '=', 'companies.userid')->where('users.userid', '=', Auth::id())->first();
+        ->join('users', 'users.userid', '=', 'companies.userid')->where('users.userid', '=', $uid->userid)->first();
 
         
 
         $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
         ->where('companyid', '=', $company->companyid)->get();
 
-        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $uid->userid)->first();
 
+        $temp = User::find(Auth::id());
+        if($temp->userrole == 2) {
+            $data = DB::table('companies')->select('companyid', 'users.userid', 'users.firstname', 'users.surname', 'users.created_at', 'users.email', 'name', 'registryid', 'about', 'homepage', 'location')
+            ->join('users', 'users.userid', '=', 'companies.userid')->where('companyid', '=', $uid->companyid)->first();
+
+            $offers = DB::table('joboffers')->where('companyid', '=', $uid->companyid)->get();
+            return view('administration/admin_companyview', compact('data', 'offers'));
+
+        }
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
 
@@ -149,21 +169,38 @@ class JobOfferController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        
+        $uid = DB::table('joboffers')->select('userid', 'companies.companyid')->join('companies', 'companies.companyid', '=', 'joboffers.companyid')
+        ->where('joboffers.offerid', '=', $id)->first();
+
+        if(Auth::id() != $uid->userid && !Gate::allows('isAdmin', auth()->user())) {
+            abort(403);
+        }
+
         $offer = JobOffer::findOrFail($id);
         $offer->delete();
 
         $company = DB::table('companies')
         ->select('users.firstname', 'users.surname', 'companies.name', 'registryid', 'about', 'homepage', 'location', 'companyid')
-        ->join('users', 'users.userid', '=', 'companies.userid')->where('users.userid', '=', Auth::id())->first();
+        ->join('users', 'users.userid', '=', 'companies.userid')->where('users.userid', '=', $uid->userid)->first();
 
         
 
         $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
         ->where('companyid', '=', $company->companyid)->get();
 
-        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $uid->userid)->first();
 
+        $temp = User::find(Auth::id());
+        if($temp->userrole == 2) {
+            $data = DB::table('companies')->select('companyid', 'users.userid', 'users.firstname', 'users.surname', 'users.created_at', 'users.email', 'name', 'registryid', 'about', 'homepage', 'location')
+            ->join('users', 'users.userid', '=', 'companies.userid')->where('companyid', '=', $uid->companyid)->first();
+
+            $offers = DB::table('joboffers')->where('companyid', '=', $uid->companyid)->get();
+            return view('administration/admin_companyview', compact('data', 'offers'));
+
+        }
         return view('company_profile', compact('company', 'joboffers', 'user'));
     }
 }

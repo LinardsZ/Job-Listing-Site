@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministrationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SearchController;
@@ -68,3 +69,24 @@ Route::post('/offer/add', [JobOfferController::class, 'store'])->middleware('aut
 Route::get('/offer/edit/{id}', [JobOfferController::class, 'edit'])->middleware('auth')->name('edit.offer');
 Route::post('/offer/set', [JobOfferController::class, 'update'])->middleware('auth')->name('set.offer');
 Route::delete('/offer/delete/{id}', [JobOfferController::class, 'destroy'])->middleware('auth')->name('delete.offer');
+
+//routes for administrative managing
+Route::get('manage', [AdministrationController::class, 'index'])->middleware('auth')->name('show.admin');
+
+Route::get('/view/user/{id}', [AdministrationController::class, 'show'])->middleware('auth')->name('admin.showuser');
+Route::get('/view/user/edit/{id}', [AdministrationController::class, 'edit'])->middleware('auth')->name('admin.edituser');
+Route::post('/view/user/update', [AdministrationController::class, 'update'])->middleware('auth')->name('admin.updateuser');
+Route::post('/view/user/experience/new', [AdministrationController::class, 'newExperience'])->middleware('auth')->name('admin.newexp');
+Route::post('/view/user/education/new', [AdministrationController::class, 'newEducation'])->middleware('auth')->name('admin.newedu');
+Route::get('/view/user/delete/{id}', [AdministrationController::class, 'destroy'])->middleware('auth')->name('admin.deleteuser');
+
+Route::post('/view/company/offer/add', [AdministrationController::class, 'storeOffer'])->middleware('auth')->name('admin.addoffer');
+Route::get('/view/company/{id}', [AdministrationController::class, 'showCompany'])->middleware('auth')->name('admin.showcompany');
+Route::get('/view/company/edit/{id}', [AdministrationController::class, 'editCompany'])->middleware('auth')->name('admin.editcompany');
+Route::post('/view/company/update', [AdministrationController::class, 'updateCompany'])->middleware('auth')->name('admin.updatecompany');
+Route::get('/view/company/delete/{id}', [AdministrationController::class, 'destroyCompany'])->middleware('auth')->name('admin.deletecompany');
+
+Route::get('/view/picture/delete/{userid}', [AdministrationController::class, 'destroyPicture'])->middleware('auth')->name('admin.deletepicture');
+Route::get('/view/picture/delete/{cid}', [AdministrationController::class, 'destroyCompanyPicture'])->middleware('auth')->name('admin.deletecompanypicture');
+
+

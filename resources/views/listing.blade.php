@@ -25,15 +25,8 @@
                     <p class="italic text-gray-700 pt-2 pb-16">{{ $data->name }}</p>
                 </div>
                 <div class="flex flex-col pr-4 justify-center">
-                    @auth
-                    <a href="mailto:{{ $data->email }}" class="block font-bold text-white text-center mb-4 p-2 bg-gray-700 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-700 
+                    <a href="mailto:{{ $data->email }}" class="block font-bold text-white text-center mb-4 py-2 px-4 bg-gray-700 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-700 
                     ease-in-out duration-300 cursor-pointer select-none">Send e-mail</a>
-                    <a class="block font-bold text-white text-center p-2 bg-gray-700 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-700 
-                    ease-in-out duration-300 cursor-pointer select-none">Start a conversation</a>
-                    @else
-                    <a href="mailto:{{ $data->email }}" class="block font-bold text-white text-center mb-4 p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-700 hover:bg-emerald-700 
-                    ease-in-out duration-300 cursor-pointer select-none">Send e-mail</a>
-                    @endauth
                 </div>
             </div>
             <div class="flex justify-between flex-row bg-neutral-50 p-4 border-x border-b border-neutral-200">

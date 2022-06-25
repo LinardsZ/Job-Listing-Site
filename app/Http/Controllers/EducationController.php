@@ -6,6 +6,7 @@ use App\Models\Education;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 
@@ -82,7 +83,11 @@ class EducationController extends Controller
      */
     public function edit($id)
     {
-        $edu = DB::table('education')->select('eduid', 'institution', 'program', 'startyear', 'endyear')->where('eduid', '=', $id)->first();
+        $edu = DB::table('education')->select('userid', 'eduid', 'institution', 'program', 'startyear', 'endyear')->where('eduid', '=', $id)->first();
+        
+        if(Auth::id() != $edu->userid && !Gate::allows('isAdmin', auth()->user())) {
+            abort(403);
+        }
 
         return view('edit_education', compact('edu'));
     }
@@ -95,7 +100,7 @@ class EducationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
-    {
+    {   
         $rules = [
             'institution' => ['nullable', 'max:50'],
             'program' => ['nullable', 'max:50'],
@@ -104,21 +109,32 @@ class EducationController extends Controller
         ];
 
         $request->validate($rules);
-
         $edu = Education::find($request->eduid);
+        $userid = $edu->userid;
+        if(Auth::id() != $edu->userid && !Gate::allows('isAdmin', auth()->user())) {
+            abort(403);
+        }
+
+        
         if(filled($request->institution)) $edu->institution = $request->institution;
         if(filled($request->program)) $edu->program = $request->program;
         if(filled($request->startyear)) $edu->startyear = $request->startyear;
         if(filled($request->endyear)) $edu->endyear = $request->endyear;
         $edu->save();
 
-        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $userid)->first();
 
         $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
-        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $userid)->get();
 
         $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
-        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', Auth::id())->get();
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $userid)->get();
+
+        $temp = User::find(Auth::id());
+        if($temp->userrole == 2) {
+            return redirect()->route('admin.showuser', $userid);
+        }
+
         return view('user_profile', compact('data', 'education', 'experience'));
     }
 
@@ -129,16 +145,22 @@ class EducationController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
+    {   
+        $userid = DB::table('education')->select('userid')->where('eduid', '=', $id)->first();
         Education::destroy($id);
 
-        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', Auth::id())->first();
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $userid->userid)->first();
 
         $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
-        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', Auth::id())->get();
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $userid->userid)->get();
 
         $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
-        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', Auth::id())->get();
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $userid->userid)->get();
+
+        $temp = User::find(Auth::id());
+        if($temp->userrole == 2) {
+            return redirect()->route('admin.showuser', $userid->userid);
+        }
         return view('user_profile', compact('data', 'education', 'experience'));
     }
 }

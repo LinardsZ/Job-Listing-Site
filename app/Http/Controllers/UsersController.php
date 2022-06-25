@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Experience;
 use App\Models\Education;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Illuminate\Validation\Rules\Password;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules\Password;
 use Symfony\Component\Console\Input\Input;
 
 class UsersController extends Controller
@@ -41,6 +42,7 @@ class UsersController extends Controller
         }
 
         else {
+
             $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $id)->first();
 
             $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
@@ -48,6 +50,12 @@ class UsersController extends Controller
 
             $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
             ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
+
+            $temp = User::find(Auth::id());
+            if($temp->userrole == 2) {
+                $userrole = $temp->userrole;
+                return view('user_profile', compact('data', 'education', 'experience', 'userrole'));
+            }
             return view('user_profile', compact('data', 'education', 'experience'));
         }
         
@@ -151,9 +159,11 @@ class UsersController extends Controller
         if(filled($request->surname)) $user->surname = $request->surname;
         if(filled($request->email)) $user->email = $request->email;
         if(filled($request->newpassword)) $user->password = Hash::make($request->newpassword);
+
+        
         if($request->hasFile('picture')) {
             $extension = $request->file('picture')->extension();
-            $request->file('picture')->storeAs('public/avatars', Auth::id().'.'.$extension);
+            $request->file('picture')->storeAs('public/avatars', Auth::id().'.jpg');
         }
         $user->save();
 
@@ -164,6 +174,12 @@ class UsersController extends Controller
 
         $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
         ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', Auth::id())->get();
+
+        $temp = User::find(Auth::id());
+            if($temp->userrole == 2) {
+                $userrole = $temp->userrole;
+                return view('user_profile', compact('data', 'education', 'experience', 'userrole'));
+            }
         return view('user_profile', compact('data', 'education', 'experience'));
     }
 

@@ -15,7 +15,7 @@ class SearchController extends Controller
     public function index()
     {
         $offers = DB::table('joboffers')->select('offerid', 'position', 'category', 'description', 'salary', 'name')
-        ->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(12);
+        ->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(6);
         foreach($offers as $offer) {
             $offer->description = substr($offer->description, 0, 100);
             if (strlen($offer->description) == 100) {

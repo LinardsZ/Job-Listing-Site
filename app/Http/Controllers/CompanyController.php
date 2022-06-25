@@ -159,7 +159,7 @@ class CompanyController extends Controller
         if(filled($request->newpassword)) $update_user->password = Hash::make($request->newpassword);
         if($request->hasFile('picture')) {
             $extension = $request->file('picture')->extension();
-            $request->file('picture')->storeAs('public/avatars', Auth::id().'.'.$extension);
+            $request->file('picture')->storeAs('public/avatars', Auth::id().'.jpg');
         }
         $update_user->save();
 
