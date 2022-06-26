@@ -9,6 +9,7 @@ use App\Http\Controllers\JobOfferController;
 use Illuminate\Auth\Middleware\Authenticate;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\MessagesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -90,3 +91,11 @@ Route::get('/view/picture/delete/{userid}', [AdministrationController::class, 'd
 Route::get('/view/picture/delete/{cid}', [AdministrationController::class, 'destroyCompanyPicture'])->middleware('auth')->name('admin.deletecompanypicture');
 
 
+// store a new message in database
+Route::post('/message', [MessagesController::class, 'store'])->middleware('auth')->name('msg.store');
+
+// view all msgs for a specific user/company
+Route::get('/conversations/{id}', [MessagesController::class, 'index'])->middleware('auth')->name('show.msgs');
+
+// view conversation between two users
+Route::post('/conversations/view', [MessagesController::class, 'show'])->middleware('auth')->name('view.conversation');

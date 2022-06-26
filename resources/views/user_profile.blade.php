@@ -30,6 +30,8 @@
             <div class="basis-1/7 grow-0 shrink-0 ml-auto mr-24 flex flex-col justify-center">
                 <a href="{{ route('edit.profile') }}" class="block font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-emerald-800 
                     ease-in-out duration-300 cursor-pointer select-none">Edit Profile</a>
+                    <a href="{{ route('show.msgs', $data->userid) }}" class="mt-6 block font-bold text-white text-center p-2 bg-gray-800 text-xl border-0 rounded-md border-gray-800 hover:bg-blue-800 
+                    ease-in-out duration-300 cursor-pointer select-none">View Messages</a>
                     @isset($userrole)
                     <a href="{{ route('show.admin') }}" class="mt-6 block font-bold text-white text-center p-2 bg-red-700 text-xl border-0 rounded-md border-gray-800 
                     ease-in-out duration-300 cursor-pointer select-none hover:bg-red-900">Manage Site</a>

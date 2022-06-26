@@ -208,6 +208,7 @@ class AdministrationController extends Controller
         User::destroy($id);
         DB::table('experience')->where('userid', '=', $id)->delete();
         DB::table('education')->where('userid', '=', $id)->delete();
+        DB::table('messages')->where('receiverid', '=', $id)->orWhere('senderid', '=', $id)->delete();
         $users = DB::table('users')->select('userid', 'firstname', 'surname', 'username', 'userrole', 'has_company', 'created_at', 'email')->where('userrole', '<>', '2')->paginate(2);
         return view('administration/admin_panel', compact('users'));
     }

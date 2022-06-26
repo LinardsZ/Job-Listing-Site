@@ -12,7 +12,7 @@
 	</head>
 	<body class="bg-neutral-100">
 		@if(session()->has('message'))
-		<div x-data="{show: true}" x-init="setTimeout(() => show = false, 3000)" x-show="show" x-transition:enter.duration.0ms x-transition:leave.duration.300ms
+		<div x-data="{show: true}" x-init="setTimeout(() => show = false, 2000)" x-show="show" x-transition:enter.duration.0ms x-transition:leave.duration.300ms
 		class="fixed top-0 left-1/2 transform -translate-x-1/2 bg-emerald-700 text-white font-bold py-4 px-32">
 			{{session('message')}}
 		</div>
