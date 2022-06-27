@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Edit Company Details</title>
+		<title>{{ __('Edit Company Details') }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -25,10 +24,10 @@
                 </svg>
             </div>
             
-            <p class="text-md text-center mb-8 mt-24">Editing <span class="font-bold text-gray-700 capitalize">{{ $data->name }}</span> details:</p>
+            <p class="text-md text-center mb-8 mt-24">{{ __('Editing') }} <span class="font-bold text-gray-700 capitalize">{{ $data->name }}</span> {{ __('details') }}:</p>
             <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('set.company') }}" method="POST" enctype="multipart/form-data">
                 @csrf
-                <label class="w-1/3 font-bold" for="name">Name of the company:</label>
+                <label class="w-1/3 font-bold" for="name">{{ __('Name of the company') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-name">
                     @error('name')
                     {{ $message }}
@@ -36,7 +35,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="name" name="name" value="">
 
-                <label class="w-1/3 font-bold" for="registryid">Registry ID:</label>
+                <label class="w-1/3 font-bold" for="registryid">{{ __('Registry ID') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-registryid">
                     @error('registryid')
                     {{ $message }}
@@ -44,7 +43,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="registryid" name="registryid" value="">
 
-                <label class="w-1/3 font-bold" for="email">Email:</label>
+                <label class="w-1/3 font-bold" for="email">{{ __('Email') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-email">
                     @error('email')
                     {{ $message }}
@@ -52,7 +51,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="email" name="email" value="">
 
-                <label class="w-1/3 font-bold" for="firstname">First name:</label>
+                <label class="w-1/3 font-bold" for="firstname">{{ __('First name') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-firstname">
                     @error('firstname')
                     {{ $message }}
@@ -60,7 +59,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="firstname" name="firstname" value="">
 
-                <label class="w-1/3 font-bold" for="surname">Surname:</label>
+                <label class="w-1/3 font-bold" for="surname">{{ __('Surname') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-surname">
                     @error('surname')
                     {{ $message }}
@@ -68,7 +67,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="surname" name="surname" value="">
 
-                <label class="w-1/3 font-bold" for="homepage">Homepage:</label>
+                <label class="w-1/3 font-bold" for="homepage">{{ __('Homepage') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-homepage">
                     @error('homepage')
                     {{ $message }}
@@ -76,7 +75,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="homepage" name="homepage" value="">
 
-                <label class="w-1/3 font-bold" for="location">Location:</label>
+                <label class="w-1/3 font-bold" for="location">{{ __('Location') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm mb-1" id="error-location">
                     @error('location')
                     {{ $message }}
@@ -84,14 +83,14 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="location" name="location" value="">
 
-                <label class="w-1/3 font-bold" for="about">About:</label>
+                <label class="w-1/3 font-bold" for="about">{{ __('About') }}:</label>
                 <textarea class="border border-red-900 mb-4 w-1/3 text-sm" rows="5" id="about" name="about"></textarea>
                 <input type="file" accept=".jpg,.png,.jpeg,.jfif" name="picture">
 
 
-                <p class="text-md text-center mb-8 mt-12 font-bold text-gray-700">Change your password (if needed):</p>
+                <p class="text-md text-center mb-8 mt-12 font-bold text-gray-700">{{ __('Change your password (if needed)') }}':</p>
 
-                <label class="w-1/3 font-bold" for="password">Current Password:</label>
+                <label class="w-1/3 font-bold" for="password">{{ __('Current Password') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-password">
                     @error('password')
                     {{ $message }}
@@ -99,7 +98,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="password" id="password" name="password" value="">
 
-                <label class="w-1/3 font-bold" for="newpassword">New Password:</label>
+                <label class="w-1/3 font-bold" for="newpassword">{{ __('New Password') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-newpassword">
                     @error('newpassword')
                     {{ $message }}
@@ -107,7 +106,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="password" id="newpassword" name="newpassword" value="">
 
-                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
+                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit" value="{{ __('Submit') }}">
             </form>
         </div>
         <script src="{{ asset('js/validate_editcompany.js') }}"></script>

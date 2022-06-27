@@ -4,8 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-		<script src="https://cdn.tailwindcss.com"></script>
-        <title>Register</title>
+        <title>{{ __('Register') }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -25,7 +24,7 @@
             </div>
             <form class="flex flex-col items-center" onsubmit="return validateRegister()" action="{{ route('create.user') }}" method="POST">
                 @csrf
-                <label class="w-1/3 font-bold" for="firstname">First name:</label>
+                <label class="w-1/3 font-bold" for="firstname">{{ __('First name') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error-firstname">
                     @error('firstname')
                     {{ $message }}
@@ -33,7 +32,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="firstname" name="firstname" value="{{ old('firstname') }}">
 
-                <label class="w-1/3 font-bold" for="surname">Surname:</label>
+                <label class="w-1/3 font-bold" for="surname">{{ __('Surname') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error-surname">
                     @error('surname')
                     {{ $message }}
@@ -41,7 +40,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="surname" name="surname" value="{{ old('surname') }}">
 
-                <label class="w-1/3 font-bold" for="username">Username:</label>
+                <label class="w-1/3 font-bold" for="username">{{ __('Username') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error-username">
                     @error('username')
                     {{ $message }}
@@ -49,7 +48,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="username" name="username" value="{{ old('username') }}">
 
-                <label class="w-1/3 font-bold" for="email">E-mail:</label>
+                <label class="w-1/3 font-bold" for="email">{{ __('E-mail') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error-email">
                     @error('email')
                     {{ $message }}
@@ -57,7 +56,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="email" name="email" value="{{ old('email') }}">
 
-                <label class="w-1/3 font-bold" for="password">Password:</label>
+                <label class="w-1/3 font-bold" for="password">{{ __('Password') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-sm" id="error-password">
                     @error('password')
                     {{ $message }}
@@ -66,9 +65,9 @@
                 <input class="border border-red-900 mb-4 w-1/3" type="password" id="password" name="password">
                 <span class="flex flex-row justify-center items-center">
                     <input class="mr-2" type="checkbox" id="is_representer" name="is_representer" value="true">
-                    <label class="" for="is_representer">I represent a company</label>
+                    <label class="" for="is_representer">{{ __('I represent a company') }}</label>
                 </span>
-                <input id="submit" class="mt-4 bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded" type="submit">
+                <input id="submit" class="mt-4 bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded" type="submit" value="{{ __('Register') }}">
             </form>
         </div>
         <script src="{{ asset('js/validate_register.js') }}"></script>

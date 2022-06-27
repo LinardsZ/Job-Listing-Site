@@ -4,8 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
-		<script src="https://cdn.tailwindcss.com"></script>
-        <title>Login</title>
+        <title>{{ __('Login') }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -24,24 +23,24 @@
             </svg>
         </div>
         <form class="flex flex-col items-center" onsubmit="return validateLogin()" method="POST" action="{{ route('auth.user') }}">
-            <div class="w-1/2 mx-auto font-bold text-center mb-4">Log in to your account</div>
+            <div class="w-1/2 mx-auto font-bold text-center mb-4">{{ __('Log in to your account') }}</div>
             @csrf
-            <label class="w-1/3" for="username">Username:</label>
+            <label class="w-1/3" for="username">{{ __('Username') }}:</label>
             <input class="border border-red-900 mb-4 w-1/3" type="text" id="username" name="username">
 
-            <label class="w-1/3" for="password">Password:</label>
+            <label class="w-1/3" for="password">{{ __('Password') }}:</label>
             <input class="border border-red-900 mb-4 w-1/3" type="password" id="password" name="password">
 
             <span class="flex flex-row justify-center items-center mb-4.5">
                     <input class="mr-2" type="checkbox" id="remember_me" name="remember_me" value="true">
-                    <label class="" for="is_representer">Remember me</label>
+                    <label class="" for="is_representer">{{ __('Remember me') }}</label>
             </span>
             <span class="bg-red-200 px-2 py-1 mt-2 border-l-4 border-red-700 font-bold text-sm" id="error">
                @error('warning')
                 {{$message}}
                 @enderror
             </span>
-            <input class="bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded mt-2.5" type="submit">
+            <input class="bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded mt-2.5" type="submit" value="{{ __('Login') }}">
         </form>
         </div>
         <script src="{{ asset('js/validate_login.js') }}"></script>

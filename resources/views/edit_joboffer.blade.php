@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Updating {{ $offer->position }} - {{ $offer->category }}</title>
+		<title>{{ __('Updating') }} {{ $offer->position }} - {{ $offer->category }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -25,12 +24,12 @@
                 </svg>
             </div>
             
-            <p class="text-md text-center mb-8 mt-24">Updating offer <span class="font-bold text-gray-700 capitalize">{{ $offer->position }} - {{ $offer->category }}</span>:</p>
+            <p class="text-md text-center mb-8 mt-24">{{ __('Updating offer') }} <span class="font-bold text-gray-700 capitalize">{{ $offer->position }} - {{ $offer->category }}</span>:</p>
             <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('set.offer') }}" method="POST">
                 @csrf
                 <input type="hidden" name="offerid" value="{{ $offer->offerid }}">
 
-                <label class="w-1/3 font-bold" for="Position">Position:</label>
+                <label class="w-1/3 font-bold" for="Position">{{ __('Position') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-position">
                     @error('position')
                     {{ $message }}
@@ -38,7 +37,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="position" name="position" value="">
 
-                <label class="w-1/3 font-bold" for="category">Category:</label>
+                <label class="w-1/3 font-bold" for="category">{{ __('Category') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-category">
                     @error('category')
                     {{ $message }}
@@ -46,7 +45,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="category" name="category" value="">
 
-                <label class="w-1/3 font-bold" for="workload">Workload:</label>
+                <label class="w-1/3 font-bold" for="workload">{{ __('Workload') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-workload">
                     @error('workload')
                     {{ $message }}
@@ -54,7 +53,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="workload" name="workload" value="">
                 
-                <label class="w-1/3 font-bold" for="location">Location:</label>
+                <label class="w-1/3 font-bold" for="location">{{ __('Location') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-location">
                     @error('location')
                     {{ $message }}
@@ -62,7 +61,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="location" name="location" value="">
 
-                <label class="w-1/3 font-bold" for="salary">Salary:</label>
+                <label class="w-1/3 font-bold" for="salary">{{ __('Salary') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-salary">
                     @error('salary')
                     {{ $message }}
@@ -70,10 +69,10 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="number" id="salary" name="salary" value="">
 
-                <label class="w-1/3 font-bold" for="description">Description:</label>
+                <label class="w-1/3 font-bold" for="description">{{ __('Description') }}:</label>
                 <textarea class="border border-red-900 mb-4 w-1/3 resize-y" type="text" id="description" name="description" rows="10" value=""></textarea>
 
-                <label class="w-1/3 font-bold" for="extra_info">Extra information:</label>
+                <label class="w-1/3 font-bold" for="extra_info">{{ __('Extra information') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-extra_info">
                     @error('extra_info')
                     {{ $message }}
@@ -81,7 +80,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="extra_info" name="extra_info" value="">
 
-                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
+                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit" value="{{ __('Submit') }}">
             </form>
         </div>
         <script src="{{ asset('js/validate_editoffer.js') }}"></script>

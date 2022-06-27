@@ -1,5 +1,4 @@
 function validateRegister() {
-    console.log('executed')
     let error_firstname = document.getElementById('error-firstname')
     let error_surname = document.getElementById('error-surname')
     let error_username = document.getElementById('error-username')
@@ -72,7 +71,7 @@ function validateRegister() {
         send = false
     }
     else if(!email_pattern.test(email.value) || email.value.length > 100) {
-        error_email.extContent = "The email must be a valid email address."
+        error_email.textContent = "The email must be a valid email address."
         send = false
     }
 

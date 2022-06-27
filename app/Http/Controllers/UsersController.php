@@ -93,7 +93,7 @@ class UsersController extends Controller
         $user->save();
 
         auth()->login($user);
-        return redirect('/')->with('message', 'User created and logged in!');
+        return redirect('/')->with('message', __('User created and logged in!'));
     }
 
     // Show view for logging in.
@@ -103,6 +103,40 @@ class UsersController extends Controller
         }
 
          return view('login');
+    }
+
+    // Visit someone's profile
+    public function visit($id) {
+        $isCompany = DB::table('users')->select('has_company')->where('userid', '=', $id)->first();
+        $isCompany = $isCompany->has_company;
+        
+        if($isCompany) {
+            $company = DB::table('companies')
+            ->select('users.firstname', 'users.surname', 'companies.name', 'registryid', 'about', 'homepage', 'location', 'companyid')
+            ->join('users', 'users.userid', '=', 'companies.userid')->where('users.userid', '=', $id)->first();
+            
+            if(!isset($company)) {
+                $user = DB::table('users')->select('firstname', 'surname', 'email')->where('userid', '=', $id)->first();
+
+                return view('visit_company', compact('user'));
+            }
+            $joboffers = DB::table('joboffers')->select('offerid', 'position', 'category', 'workload', 'salary', 'posted_at', 'location')
+            ->where('companyid', '=', $company->companyid)->get();
+
+            $user = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $id)->first();
+
+            return view('visit_company', compact('company', 'joboffers', 'user'));
+        }
+
+        $data = DB::table('users')->select('userid', 'firstname', 'surname', 'email')->where('userid', '=', $id)->first();
+
+        $education = DB::table('education')->join('users', 'education.userid', '=', 'users.userid')
+        ->select('eduid', 'institution', 'startyear', 'endyear', 'program')->where('education.userid', '=', $id)->get();
+
+        $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
+        ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
+
+        return view('visit_user', compact('data', 'education', 'experience'));
     }
 
     // Login validation and authentication
@@ -115,13 +149,13 @@ class UsersController extends Controller
         if($request->remember_me) {
             if(Auth::attempt($credentials, true)) {
                 $request->session()->regenerate();
-                return redirect()->intended('/')->with('message', 'Successfully logged in !');
+                return redirect()->intended('/')->with('message', __('Successfully logged in !'));
             }
         }
         else {
             if(Auth::attempt($credentials)) {
                 $request->session()->regenerate();
-                return redirect()->intended('/')->with('message', 'Successfully logged in !');
+                return redirect()->intended('/')->with('message', __('Successfully logged in !'));
             }
         }
 
@@ -133,7 +167,7 @@ class UsersController extends Controller
         auth()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect('/')->with('message', 'Successfully logged out !');
+        return redirect('/')->with('message', __('Successfully logged out !'));
     }
 
     // Show view for updating profile information

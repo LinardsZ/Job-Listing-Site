@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
 <nav class="flex items-center bg-gray-800 p-3 flex-wrap">
     <a class="p-2 mr-4 inline-flex items-center" href="/">
         <svg class="fill-white h-8 w-8 mr-2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -12,34 +13,56 @@
 		C6.05,8.987,7.561,8.997,9.072,8.984c0.004-1.49,0.001-2.979,0.001-4.469C7.562,4.513,6.052,4.513,4.541,4.515z"/>
         </svg>
         <span class="text-white text-xl font-bold uppercase tracking-wide select-none">
-            Job Listings
+        {{ __('Job Listings') }}
         </span>
     </a>
-    <div class="top-nav w-full inline-flex flex-grow w-auto">
+    <div class="top-nav inline-flex ml-auto">
         @auth
         <div id="navigation" class="inline-flex flex-row ml-auto flex">
+            <div class="dropdown flex flex-row items-center">
+                <p class="text-gray-400 hover">EN</p>
+                <span class="material-icons text-gray-400">expand_more</span>
+                <div id="menu" class="hidden bg-gray-900 px-2 text-white z-10 absolute top-12 flex-col">
+                    <a href="" class="text-gray-400 py-1 cursor-pointer hover:underline">LV</a>
+                    <a href="" class="text-gray-400 pb-1 cursor-pointer hover:underline">EN</a>
+                </div>
+            </div>
             <form class="inline" method="POST" action="{{ route('profile') }}">
             @csrf
                 <span href="#" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
-                    <input class="cursor-pointer" type="submit" value="Profile">
+                    <input class="cursor-pointer" type="submit" value="{{ __('Profile') }}">
                 </span>
             </form>
             <form class="inline" method="POST" action="{{ route('logout') }}">
                 @csrf
                 <span href="#" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
-                    <input class="cursor-pointer" type="submit" value="Logout">
+                    <input class="cursor-pointer" type="submit" value="{{ __('Logout') }}">
                 </span>
             </form>
         </div>
         @else
         <div id="navigation" class="inline-flex flex-row ml-auto flex">
+            <div class="dropdown flex flex-row items-center">
+                <p class="text-gray-400 hover">EN</p>
+                <span class="material-icons text-gray-400">expand_more</span>
+                <div id="menu" class="hidden bg-gray-900 px-2 text-white z-10 absolute top-12 flex-col">
+                    <a href="" class="text-gray-400 py-1 cursor-pointer hover:underline">LV</a>
+                    <a href="" class="text-gray-400 pb-1 cursor-pointer hover:underline">EN</a>
+                </div>
+            </div>
             <a href="{{ route('login') }}" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
-                <span>Login</span>
+                <span>{{ __('Login') }}</span>
             </a>
             <a href="{{ route('register') }}" class="inline-flex w-auto px-4 py-2 rounded text-gray-400 hover:text-white hover:bg-gray-900">
-                <span>Register</span>
+                <span>{{ __('Register') }}</span>
             </a>
         </div>
         @endauth
     </div>
 </nav>
+<style>
+    .dropdown:hover #menu {
+        display:flex;
+    }
+</style>
+

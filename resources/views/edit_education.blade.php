@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Updating {{ $edu->institution }} - {{ $edu->program }}</title>
+		<title>{{ __('Updating') }} {{ $edu->institution }} - {{ $edu->program }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -25,11 +24,11 @@
                 </svg>
             </div>
             
-            <p class="text-md text-center mb-8 mt-24">Updating <span class="font-bold text-gray-700 capitalize">{{ $edu->institution }} - {{ $edu->program }}</span> entry:</p>
+            <p class="text-md text-center mb-8 mt-24">{{ __('Updating') }} <span class="font-bold text-gray-700 capitalize">{{ $edu->institution }} - {{ $edu->program }}</span> {{ __('entry') }}:</p>
             <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('set.edu') }}" method="POST">
                 @csrf
                 <input type="hidden" name="eduid" value="{{ $edu->eduid }}">
-                <label class="w-1/3 font-bold" for="institution">Institution:</label>
+                <label class="w-1/3 font-bold" for="institution">{{ __('Institution') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-institution">
                     @error('institution')
                     {{ $message }}
@@ -37,7 +36,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="institution" name="institution" value="">
 
-                <label class="w-1/3 font-bold" for="program">Program:</label>
+                <label class="w-1/3 font-bold" for="program">{{ __('Program') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-program">
                     @error('program')
                     {{ $message }}
@@ -46,8 +45,8 @@
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="program" name="program" value="">
                 <div class="flex flex-col w-1/3">
                     <div class="flex flex-row justify-around">
-                        <label class="font-bold text-center mr-2" for="startyear">Start year:</label>
-                        <label class="font-bold text-center" for="endyear">End year:</label>
+                        <label class="font-bold text-center mr-2" for="startyear">{{ __('Start year') }}:</label>
+                        <label class="font-bold text-center" for="endyear">{{ __('End year') }}:</label>
                     </div>
                     <div class="mx-auto mt-1 mb-3">
                         <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-year">
@@ -64,7 +63,7 @@
                         <input class="border border-red-900 mb-4 w-16" type="number" id="endyear" name="endyear" value="" min="1980" max="2022">
                     </div>       
                 </div>
-                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
+                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit" value="{{ __('Submit') }}">
             </form>
         </div>
         <script src="{{ asset('js/validate_editeducation.js') }}"></script>

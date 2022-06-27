@@ -5,9 +5,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
         <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-		<title>My Conversations</title>
+		<title>{{ __('My Conversations') }}</title>
     </head>
     <body>
         <x-navbar/>
@@ -25,7 +24,7 @@
             </svg>
         </div>
         <div class="flex flex-col w-1/3 mx-auto">
-            <p class="font-bold text-gray-600 text-center select-none mt-24 text-lg">My Conversations</p>
+            <p class="font-bold text-gray-600 text-center select-none mt-24 text-lg">{{ __('My Conversations') }}</p>
         </div>
         @if(count($msgs) != 0)
             <div class="grid grid-cols-1 auto-cols-auto mt-8 w-1/4 mx-auto">
@@ -38,14 +37,14 @@
                         <input type="hidden" name="receiverid" value="{{ $msg->userid }}">
                         <input type="submit" class="text-xl uppercase font-bold hover:text-emerald-700 cursor-pointer" value="{{ $msg->firstname }} {{ $msg->surname }}">
                         <p class="pb-4 italic text-gray-700">{{ $msg->email }}</p>
-                        <input type="submit" class="mt-4 font-bold text-gray-700 underline text-sm cursor-pointer hover:text-emerald-700" value="View Conversation">
+                        <input type="submit" class="mt-4 font-bold text-gray-700 underline text-sm cursor-pointer hover:text-emerald-700" value="{{ __('View Conversation') }}">
                     </form>
                 </div>
                 @endforeach
             </div>
             {{ $msgs->links() }}
         @else
-        <p class="font-bold text-gray-600 text-center select-none mt-36 text-3xl">Nothing to display :(</p>
+        <p class="font-bold text-gray-600 text-center select-none mt-36 text-3xl">{{ __('Nothing to display :(') }}</p>
         @endif
         
     </body>

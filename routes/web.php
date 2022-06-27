@@ -1,15 +1,16 @@
 <?php
 
-use App\Http\Controllers\AdministrationController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\JobOfferController;
+use App\Http\Controllers\MessagesController;
 use Illuminate\Auth\Middleware\Authenticate;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\ExperienceController;
-use App\Http\Controllers\MessagesController;
+use App\Http\Controllers\AdministrationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -99,3 +100,6 @@ Route::get('/conversations/{id}', [MessagesController::class, 'index'])->middlew
 
 // view conversation between two users
 Route::post('/conversations/view', [MessagesController::class, 'show'])->middleware('auth')->name('view.conversation');
+
+//visit someone else's profile
+Route::get('visit/profile/{id}', [UsersController::class, 'visit'])->name('visit.profile');

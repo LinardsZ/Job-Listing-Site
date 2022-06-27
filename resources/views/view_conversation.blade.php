@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Conversation - {{ $name->firstname }} {{ $name->surname }}</title>
+		<title>{{ __('Conversation') }} - {{ $name->firstname }} {{ $name->surname }}</title>
     </head>
     <body>
         <x-navbar/>
@@ -31,7 +30,7 @@
                         {{ asset('no-image.png') }}
                         @endif">
             </div>
-            <span class="font-bold">{{ $name->firstname }} {{ $name->surname }}</span>
+            <a href="{{ route('visit.profile', $rid) }}" class="font-bold hover:text-emerald-800 hover:underline">{{ $name->firstname }} {{ $name->surname }}</a>
         </div>
         <div class="flex flex-col border border-gray-300 m-4 mt-0 w-1/2 mx-auto mb-0 overflow-y-auto max-h-96 h-96 p-6 ">
             @foreach($messages as $msg)
@@ -50,7 +49,7 @@
                 <input type="hidden" name="fromprofile" value="1">
                 <input type="hidden" name="senderid" value="{{ $uid }}">
                 <input type="hidden" name="receiverid" value="{{ $rid }}">
-                <input type="text" name="message" placeholder="Message" class="w-1/2 bg-gray-100 px-2 py-1.5 rounded-full border-1.5 border-gray-300 focus:outline-emerald-700 mr-2.5">
+                <input type="text" name="message" placeholder="{{ __('Message') }}" class="w-1/2 bg-gray-100 px-2 py-1.5 rounded-full border-1.5 border-gray-300 focus:outline-emerald-700 mr-2.5">
                 <span onclick="sendForm()" class="material-icons cursor-pointer">send</span>   
             </form>
         </div>

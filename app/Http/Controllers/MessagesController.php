@@ -89,7 +89,7 @@ class MessagesController extends Controller
         $msg->message = $request->message;
         $msg->save();
 
-        return redirect()->back()->with('message', 'Message was sent !');
+        return redirect()->back()->with('message', __('Message was sent !'));
     }
 
     /**

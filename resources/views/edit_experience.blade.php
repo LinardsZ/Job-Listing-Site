@@ -5,8 +5,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Updating {{ $exp->workplace }} - {{ $exp->position }}</title>
+		<title>{{ __('Updating') }} {{ $exp->workplace }} - {{ $exp->position }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
@@ -25,11 +24,11 @@
                 </svg>
             </div>
             
-            <p class="text-md text-center mb-8 mt-24">Updating <span class="font-bold text-gray-700 capitalize">{{ $exp->workplace }} - {{ $exp->position }}</span> entry:</p>
+            <p class="text-md text-center mb-8 mt-24">{{ __('Updating') }} <span class="font-bold text-gray-700 capitalize">{{ $exp->workplace }} - {{ $exp->position }}</span> {{ __('entry') }}:</p>
             <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('set.exp') }}" method="POST">
                 @csrf
                 <input type="hidden" name="expid" value="{{ $exp->expid }}">
-                <label class="w-1/3 font-bold" for="workplace">Workplace:</label>
+                <label class="w-1/3 font-bold" for="workplace">{{ __('Workplace') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-workplace">
                     @error('workplace')
                     {{ $message }}
@@ -37,7 +36,7 @@
                 </span>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="workplace" name="workplace" value="">
 
-                <label class="w-1/3 font-bold" for="position">Position:</label>
+                <label class="w-1/3 font-bold" for="position">{{ __('Position') }}:</label>
                 <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-position">
                     @error('position')
                     {{ $message }}
@@ -46,8 +45,8 @@
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="position" name="position" value="">
                 <div class="flex flex-col w-1/3">
                     <div class="flex flex-row justify-around">
-                        <label class="font-bold text-center mr-2" for="startyear">Start year:</label>
-                        <label class="font-bold text-center" for="endyear">End year:</label>
+                        <label class="font-bold text-center mr-2" for="startyear">{{ __('Start year') }}:</label>
+                        <label class="font-bold text-center" for="endyear">{{ __('End year') }}:</label>
                     </div>
                     <div class="mx-auto mt-1 mb-3">
                         <span class="msgs bg-red-200 px-2 py-1 border-l-4 border-red-700 font-bold text-xs mb-1" id="error-year">
@@ -64,7 +63,7 @@
                         <input class="border border-red-900 mb-4 w-16" type="number" id="endyear" name="endyear" value="" min="1980" max="2022">
                     </div>       
                 </div>
-                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
+                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit" value="{{ __('Submit') }}">
             </form>
         </div>
         <script src="{{ asset('js/validate_editexperience.js') }}"></script>

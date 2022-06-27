@@ -5,12 +5,11 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="{{ asset('css/app.css') }}">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" integrity="sha256-x8PYmLKD83R9T/sYmJn1j3is/chhJdySyhet/JuHnfY=" crossorigin="anonymous"/>
-		<script src="https://cdn.tailwindcss.com"></script>
-		<title>Admin Panel - Updating {{ $company->name }}</title>
+		<title>{{ __('Administration Panel') }} - {{ __('Updating') }} {{ $company->name }}</title>
     </head>
     <body class="bg-neutral-100">
         <x-navbar/>
-        <p class="font-bold text-red-900 text-center text-4xl my-12 select-none">Administrator Mode</p>
+        <p class="font-bold text-red-900 text-center text-4xl my-12 select-none">{{ __('Administrator Mode') }}</p>
         <div class="my-16 mx-auto w-1/2">
             <div class="mb-12">
                 <svg class="block fill-emerald-700 h-24 w-24 mx-auto" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -26,41 +25,41 @@
                 </svg>
             </div>
             
-            <p class="text-md text-center mb-8 mt-24">Editing <span class="font-bold text-gray-700 capitalize">{{ $company->name }}</span> details:</p>
+            <p class="text-md text-center mb-8 mt-24">{{ __('Editing') }} <span class="font-bold text-gray-700 capitalize">{{ $company->name }}</span> {{ __('details') }}:</p>
             <form class="flex flex-col items-center" onsubmit="return validateEditForm()" action="{{ route('admin.updatecompany') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="userid" value="{{ $company->userid }}">
                 <input type="hidden" name="companyid" value="{{ $company->companyid }}">
-                <label class="w-1/3 font-bold" for="name">Name of the company:</label>
+                <label class="w-1/3 font-bold" for="name">{{ __('Name of the company') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="name" name="name" value="">
 
-                <label class="w-1/3 font-bold" for="registryid">Registry ID:</label>
+                <label class="w-1/3 font-bold" for="registryid">{{ __('Registry ID') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="registryid" name="registryid" value="">
 
-                <label class="w-1/3 font-bold" for="email">Email:</label>
+                <label class="w-1/3 font-bold" for="email">{{ __('Email') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="email" name="email" value="">
 
-                <label class="w-1/3 font-bold" for="firstname">First name:</label>
+                <label class="w-1/3 font-bold" for="firstname">{{ __('First name') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="firstname" name="firstname" value="">
 
-                <label class="w-1/3 font-bold" for="surname">Surname:</label>
+                <label class="w-1/3 font-bold" for="surname">{{ __('Surname') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="surname" name="surname" value="">
 
-                <label class="w-1/3 font-bold" for="homepage">Homepage:</label>
+                <label class="w-1/3 font-bold" for="homepage">{{ __('Homepage') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="homepage" name="homepage" value="">
 
-                <label class="w-1/3 font-bold" for="location">Location:</label>
+                <label class="w-1/3 font-bold" for="location">{{ __('Location') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="text" id="location" name="location" value="">
 
-                <label class="w-1/3 font-bold" for="about">About:</label>
+                <label class="w-1/3 font-bold" for="about">{{ __('About') }}:</label>
                 <textarea class="border border-red-900 mb-4 w-1/3 text-sm" rows="5" id="about" name="about"></textarea>
 
                 <input type="file" accept=".jpg,.png,.jpeg,.jfif" name="picture">
 
-                <label class="w-1/3 font-bold pt-1" for="password">New Password:</label>
+                <label class="w-1/3 font-bold pt-1" for="password">{{ __('New Password') }}:</label>
                 <input class="border border-red-900 mb-4 w-1/3" type="password" id="password" name="password" value="">
 
-                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit">
+                <input id="submit" class="mt-4 bg-gray-700 hover:bg-emerald-700 w-1/5 cursor-pointer text-white font-bold border rounded ease-in-out duration-300" type="submit" value="{{ __('Submit') }}">
             </form>
         </div>
     </body>
