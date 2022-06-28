@@ -51,7 +51,7 @@ class SearchController extends Controller
         //if no search fields were filled, return all jobs paginated
         if(empty($request->category) && empty($request->location) && empty($request->keywords)) {
             $offers = DB::table('joboffers')->select('offerid', 'position', 'category', 'description', 'salary', 'name', 'workload', 'posted_at')
-            ->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(2);
+            ->join('companies', 'joboffers.companyid', '=', 'companies.companyid')->paginate(5);
             foreach($offers as $offer) {
                 $offer->description = substr($offer->description, 0, 300);
                 if (strlen($offer->description) == 300) {
@@ -83,7 +83,7 @@ class SearchController extends Controller
                 ->orWhere('name', 'like', '%'.$request->keywords.'%');
             }
 
-            $offers = $offers->paginate(2);
+            $offers = $offers->paginate(5);
 
             foreach($offers as $offer) {
                 $offer->description = substr($offer->description, 0, 300);

@@ -89,7 +89,7 @@ Route::post('/view/company/update', [AdministrationController::class, 'updateCom
 Route::get('/view/company/delete/{id}', [AdministrationController::class, 'destroyCompany'])->middleware('auth')->name('admin.deletecompany');
 
 Route::get('/view/picture/delete/{userid}', [AdministrationController::class, 'destroyPicture'])->middleware('auth')->name('admin.deletepicture');
-Route::get('/view/picture/delete/{cid}', [AdministrationController::class, 'destroyCompanyPicture'])->middleware('auth')->name('admin.deletecompanypicture');
+Route::get('/view/companypicture/delete/{cid}', [AdministrationController::class, 'destroyCompanyPicture'])->middleware('auth')->name('admin.deletecompanypicture');
 
 
 // store a new message in database

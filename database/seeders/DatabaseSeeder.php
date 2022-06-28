@@ -150,6 +150,124 @@ Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši 
         $job->location = "Zeiferta iela 4";
         $job->extra_info = "Must have 40+ year experience";
         $job->save();
-  
+
+        $job = new JobOffer;
+        $job->companyid = 1;
+        $job->position = "Sistēmu administrators/-e";
+        $job->category = "Informācijas tehnoloģijas";
+        $job->workload = "Pilna laika";
+        $job->salary = 1300;
+        $job->posted_at = date("Y-m-d");
+        $job->description = "Darba pienākumu apraksts:
+        Darbs ar Windows un Linux sistēmām;
+        Datorsistēmu apkalpošana un kļūmju novēršana;
+        Primārā defektu diagnostika.
+        
+        Prasības kandidātiem:
+        
+        Vismaz vidēja izglītība
+        Pieredze ar 1C un citām programmām
+        Vismaz 1 gadu pieredze attiecīgajā jomā
+        Labas latviešu valodas zināšanas
+        
+        Mēs piedāvājam:
+        Draudzīgu kolektīvu ar lielisku darba atmosfēru
+        Stabilu atalgojumu līdz 1300 EUR
+        Darba laiks no 10:00 - 19:00";
+        $job->location = "Rīga";
+        $job->extra_info = "pastāvīgs darbinieks";
+        $job->save();
+            
+        $job = new JobOffer;
+        $job->companyid = 1;
+        $job->position = "IT administrators";
+        $job->category = "Informācijas tehnoloģijas";
+        $job->workload = "Pilna slodze";
+        $job->salary = 2800;
+        $job->posted_at = date("Y-m-d");
+        $job->description = "Darba apraksts
+        
+        Atbalsts filiāles IT infrastruktūrai.
+        Jaunu IT tehnoloģiju testēšana, priekšlikumu izstrāde to ievietošanai.
+        Aktīva mijiedarbība ar uzņēmuma nodaļām un lietotājiem uzticēto uzdevumu veikšanai.
+        Tīkla uzraudzības sistēmu, e-pastu, telefonijas darbības atbalsts.
+        Windows / Unix serveru un darbstaciju uzstādīšanas, konfigurēšanas un administrēšanas ieviešana.
+        
+        Prasības kandidātiem
+        
+        Vismaz 2 gadu pieredze IT jomā.
+        Zināšanas un izpratne par OSI un TCP/IP modeļiem.
+        Izpratne par datu tīklu veidošanas principiem.
+        Zināšanas par lokālo tīklu ethernet, VPN principiem.
+        Pieredze Linux administrēšanā.
+        Pieredze Windows un AD domēnu administrēšanā (GPO, DFS u.c.).
+        Pieredze ar Hyper-V virtualizācijas tehnoloģiju.
+        Pieredze ar galalietotāju atbalstu.
+        Pieredze ar Zabbix uzraudzības sistēmu.
+        Pieredze darbā ar VoIP telefoniju, kuras pamatā ir Asterisk, Yeastar.
+        Pamata programmēšanas prasmes: Bash, Python, PowerShell, Perl, u.c.
+        Angļu valodas zināšanas vismaz vidējā līmenī mutiskai un rakstiskai komunikācijai.
+        Labas komunikācijas prasmes.
+        
+        Uzņēmums piedāvā
+        
+        Elastīgu darba vidi.
+        Spēja izteikties par uzņēmuma virzību un lēmumu pieņemšanu.
+        Darbu lielā un strauji augoša globālā organizācijā ar profesionālu, draudzīgu kolektīvu.
+        Daudzas karjeras izaugsmes un paaugstināšanas iespējas.
+        Apmācības.
+        Iespējas ceļot uz konferencēm un uzņēmuma iekšējiem pasākumiem.";
+        $job->location = "Rīga, Centrs";
+        $job->extra_info = "Nav papildus informācija";
+        $job->save();
+
+        $job = new JobOffer;
+        $job->companyid = 1;
+        $job->position = "Senior Developer";
+        $job->category = "Programmēšana";
+        $job->workload = "Nepilna laika";
+        $job->salary = 19;
+        $job->posted_at = date("Y-m-d");
+        $job->description = "testa darba sludinājums 123";
+        $job->location = "Rīga, Kr. Valdemāra iela 34";
+        $job->extra_info = "Nav papildus informācija";
+        $job->save();
+
+        $job = new JobOffer;
+        $job->companyid = 1;
+        $job->position = "Biroja administrators";
+        $job->category = "PR";
+        $job->workload = "Pilna laika";
+        $job->salary = 19;
+        $job->posted_at = date("Y-m-d");
+        $job->description = "Tavi galvenie pienākumi būs
+        
+        Profesionāla biroja ikdienas darba organizācija
+        Lietvedības kārtošana un korespondences sagatavošana
+        Laipna biroja apmeklētāju sagaidīšana
+        Klientu apkalpošana pa telefonu
+        Aktīva līdzdalība dažādos projektos un atbalsta sniegšana uzņēmuma darbiniekiem
+        
+        Tevi sagaida
+        
+        Lieliska pieredze un atbildīgs darbs
+        Atalgojums no 850 līdz 1000 €/mēnesī (Bruto)
+        Labumu grozs ar veselības apdrošināšanu, atlaižu karti, dāvanām, pasākumiem
+        Draudzīgi kolēģi un ērti darba apstākļi birojā Rīgas centrā";
+        $job->location = "Rīga, Kr. Valdemāra iela 34";
+        $job->extra_info = "Nav papildus informācija";
+        $job->save();
+
+        $job = new JobOffer;
+        $job->companyid = 1;
+        $job->position = "Junior Java Developer";
+        $job->category = "Programmēšana";
+        $job->workload = "Nepilna laika";
+        $job->salary = 1900;
+        $job->posted_at = date("Y-m-d");
+        $job->description = "Java Programming";
+        $job->location = "Jelgava";
+        $job->extra_info = "test";
+        $job->save();
     }
 }

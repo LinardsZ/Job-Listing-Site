@@ -59,6 +59,12 @@ class ExperienceController extends Controller
 
         $experience = DB::table('experience')->join('users', 'users.userid', '=', 'experience.userid')
         ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $id)->get();
+
+        $temp = User::find(Auth::id());
+        if($temp->userrole == 2) {
+            $userrole = $temp->userrole;
+            return view('user_profile', compact('data', 'education', 'experience', 'userrole'));
+        }
         return view('user_profile', compact('data', 'education', 'experience'));
     }
 
@@ -129,7 +135,8 @@ class ExperienceController extends Controller
         ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $userid)->get();
 
         $temp = User::find(Auth::id());
-        if($temp->userrole == 2) {
+        if($temp->userrole == 2 && Auth::id() != $userid) {
+            
             return redirect()->route('admin.showuser', $userid);
 
         }
@@ -156,7 +163,7 @@ class ExperienceController extends Controller
         ->select('expid', 'workplace', 'startyear', 'endyear', 'position')->where('experience.userid', '=', $userid->userid)->get();
 
         $temp = User::find(Auth::id());
-        if($temp->userrole == 2) {
+        if($temp->userrole == 2 && Auth::id() != $userid->userid) {
             return redirect()->route('admin.showuser', $userid->userid);
         }
         return view('user_profile', compact('data', 'education', 'experience'));
