@@ -115,25 +115,21 @@ Prasības kandidātiem:
 
 Uzņēmums piedāvā:
 
-- Algu, sākot no 4.00 (stundas likme - jo vairāk strādā, jo vairāk nopelni), (nomaksāti visi nodokļi)
+- Algu, sākot no 4.00
 - Paaugstinātu likmi virsstundās un svētku dienās
-- Ikmēneša prēmijas
-- Dāvanā kosmētikas produktu par katru nostrādāto nedēļu pārbaudes laikā
 - Veselības apdrošināšanu
-- Darbinieka atlaižu karti pirkumiem veikalos Drogas
+- Darbinieka atlaižu karti pirkumiem
 - Tev ērtu darba laiku, iespēju apvienot darbu ar mācībām / ģimeni / hobijiem un iegūt vērtīgu darba pieredzi
 - Feinu darba vidu, kur Tev visu iemācīs, Tevi atbalstīs, izklaidēs, piedāvās konkursus un pasniegs dāvanas svētkos
-- Izaugsmes iespējas - ātri kļūt par vecāko pārdevēju / veikala vadītāju / biroja darbinieku
-
-Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši piemērojamiem tiesību aktiem par datu aizsardzību un tiks izmantoti tikai personāla atlasei. Mēs glabājam personu datus līdz 1 gadam, pēc tam tos anonimizējam vai iznīcinām. Vairāk informācijas par tiesībām uz privātumu un kā sazināties ar mums, atrodams mājas lapā Privātuma politikas sadaļā.";
-        $job->location = "Rīga, Centrs, Avotu iela 26";
+- Izaugsmes iespējas";
+        $job->location = "Rīga, Centrs, Avotu iela 106";
         $job->extra_info = "Nav papildus informācija";
         $job->save();
         
         
         $job = new JobOffer;
         $job->companyid = 1;
-        $job->position = "Laravel Developer";
+        $job->position = "Backend Developer";
         $job->category = "Web Development";
         $job->workload = "Full-time";
         $job->salary = 1800;
@@ -148,7 +144,7 @@ Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši 
         
         Interdum et malesuada fames ac ante ipsum primis in faucibus.";
         $job->location = "Zeiferta iela 4";
-        $job->extra_info = "Must have 40+ year experience";
+        $job->extra_info = "Must have 4+ year experience";
         $job->save();
 
         $job = new JobOffer;
@@ -166,7 +162,6 @@ Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši 
         Prasības kandidātiem:
         
         Vismaz vidēja izglītība
-        Pieredze ar 1C un citām programmām
         Vismaz 1 gadu pieredze attiecīgajā jomā
         Labas latviešu valodas zināšanas
         
@@ -189,34 +184,25 @@ Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši 
         
         Atbalsts filiāles IT infrastruktūrai.
         Jaunu IT tehnoloģiju testēšana, priekšlikumu izstrāde to ievietošanai.
-        Aktīva mijiedarbība ar uzņēmuma nodaļām un lietotājiem uzticēto uzdevumu veikšanai.
-        Tīkla uzraudzības sistēmu, e-pastu, telefonijas darbības atbalsts.
-        Windows / Unix serveru un darbstaciju uzstādīšanas, konfigurēšanas un administrēšanas ieviešana.
+        Tīkla uzraudzības sistēmu, e-pastu atbalsts.
+        Windows / Unix serveru konfigurēšanas un administrēšanas ieviešana.
         
         Prasības kandidātiem
         
         Vismaz 2 gadu pieredze IT jomā.
         Zināšanas un izpratne par OSI un TCP/IP modeļiem.
-        Izpratne par datu tīklu veidošanas principiem.
-        Zināšanas par lokālo tīklu ethernet, VPN principiem.
-        Pieredze Linux administrēšanā.
-        Pieredze Windows un AD domēnu administrēšanā (GPO, DFS u.c.).
-        Pieredze ar Hyper-V virtualizācijas tehnoloģiju.
-        Pieredze ar galalietotāju atbalstu.
+        Zināšanas par lokālo tīklu un VPN principiem.
+        Pieredze Linux, Windows un AD domēnu administrēšanā (GPO, DFS u.c.).
         Pieredze ar Zabbix uzraudzības sistēmu.
-        Pieredze darbā ar VoIP telefoniju, kuras pamatā ir Asterisk, Yeastar.
         Pamata programmēšanas prasmes: Bash, Python, PowerShell, Perl, u.c.
-        Angļu valodas zināšanas vismaz vidējā līmenī mutiskai un rakstiskai komunikācijai.
+        Angļu valodas zināšanas vismaz vidējā līmenī.
         Labas komunikācijas prasmes.
         
         Uzņēmums piedāvā
         
         Elastīgu darba vidi.
-        Spēja izteikties par uzņēmuma virzību un lēmumu pieņemšanu.
-        Darbu lielā un strauji augoša globālā organizācijā ar profesionālu, draudzīgu kolektīvu.
         Daudzas karjeras izaugsmes un paaugstināšanas iespējas.
-        Apmācības.
-        Iespējas ceļot uz konferencēm un uzņēmuma iekšējiem pasākumiem.";
+        Apmācības.";
         $job->location = "Rīga, Centrs";
         $job->extra_info = "Nav papildus informācija";
         $job->save();
@@ -229,7 +215,7 @@ Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši 
         $job->salary = 19;
         $job->posted_at = date("Y-m-d");
         $job->description = "testa darba sludinājums 123";
-        $job->location = "Rīga, Kr. Valdemāra iela 34";
+        $job->location = "Rīga, Kr. Valdemāra iela 314";
         $job->extra_info = "Nav papildus informācija";
         $job->save();
 
@@ -242,19 +228,17 @@ Jebkādi Ežu cienītājiem sniegtie personu dati tiks apstrādāti atbilstoši 
         $job->posted_at = date("Y-m-d");
         $job->description = "Tavi galvenie pienākumi būs
         
-        Profesionāla biroja ikdienas darba organizācija
         Lietvedības kārtošana un korespondences sagatavošana
-        Laipna biroja apmeklētāju sagaidīšana
         Klientu apkalpošana pa telefonu
-        Aktīva līdzdalība dažādos projektos un atbalsta sniegšana uzņēmuma darbiniekiem
+        Aktīva līdzdalība dažādos projektos
         
         Tevi sagaida
         
         Lieliska pieredze un atbildīgs darbs
-        Atalgojums no 850 līdz 1000 €/mēnesī (Bruto)
-        Labumu grozs ar veselības apdrošināšanu, atlaižu karti, dāvanām, pasākumiem
-        Draudzīgi kolēģi un ērti darba apstākļi birojā Rīgas centrā";
-        $job->location = "Rīga, Kr. Valdemāra iela 34";
+        Atalgojums no 850 līdz 1000 €
+        Labumu grozs ar veselības apdrošināšanu, pasākumiem
+        Draudzīgi kolēģi un ērti darba apstākļi";
+        $job->location = "Rīga, Kr. Valdemāra iela 64";
         $job->extra_info = "Nav papildus informācija";
         $job->save();
 
