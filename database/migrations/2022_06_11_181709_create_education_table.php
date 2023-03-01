@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('education', function (Blueprint $table) {
             $table->id('eduid');
-            $table->foreignId('userid')->constrained('users');
+            $table->integer('userid')->constrained('users');
             $table->string('institution', 50);
             $table->integer('startyear');
             $table->integer('endyear')->nullable();

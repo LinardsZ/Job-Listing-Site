@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('joboffers', function (Blueprint $table) {
             $table->id('offerid');
-            $table->foreignId('companyid')->constrained('company');
+            $table->integer('companyid')->constrained('companies');
             $table->string('position', 40);
             $table->string('category', 30);
             $table->string('workload', 30);

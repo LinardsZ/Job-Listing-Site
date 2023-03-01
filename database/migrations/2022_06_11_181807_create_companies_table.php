@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('companies', function (Blueprint $table) {
-            $table->id('companyid');
-            $table->foreignId('userid')->constrained('users');
+            $table->integer('companyid')->autoIncrement();
+            $table->integer('userid')->constrained('users');
             $table->string('name', 50);
             $table->char('registryid', 11);
             $table->text('about');

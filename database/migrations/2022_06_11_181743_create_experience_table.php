@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('experience', function (Blueprint $table) {
             $table->id('expid');
-            $table->foreignId('userid')->constrained('users');
+            $table->integer('userid')->constrained('users');
             $table->string('workplace', 50);
             $table->integer('startyear');
             $table->integer('endyear')->nullable();
