@@ -70,8 +70,8 @@ class SearchController extends Controller
             }
 
             if(!empty($request->location)) {
-                if(empty($request->category)) $offers->where('location', 'like', '%'.$request->location.'%');
-                else $offers->orWhere('location', 'like', '%'.$request->location.'%');
+                if(empty($request->category)) $offers->where('joboffers.location', 'like', '%'.$request->location.'%');
+                else $offers->orWhere('joboffers.location', 'like', '%'.$request->location.'%');
             }
 
             if(!empty($request->keywords)) {
